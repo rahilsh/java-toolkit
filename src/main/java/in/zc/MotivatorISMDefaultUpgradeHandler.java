@@ -1,5 +1,9 @@
-//$Id$
-package jp.skydesk.sales.util;
+// $Id$
+package in.zc;
+
+public class MotivatorISMDefaultUpgradeHandler {}
+
+/*package jp.skydesk.sales.util;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -41,19 +45,19 @@ public class MotivatorISMDefaultUpgradeHandler extends UpgradeHandler {
 	private static final Logger LOGGER = Logger.getLogger(MotivatorISMDefaultUpgradeHandler.class.getName());
 
 	public void handleTableUpdates(long oldVersion, boolean isReverting) throws Exception {
-		//		
-		//	
+		//
+		//
 		//		For DB specific Operations
-		//	
-		//	
+		//
+		//
 	}
 
 	public void handleCustomerDataUpdates(long oldVersion, boolean isReverting) throws Exception {
-		//	
-		//		
-		//		For User specific operations. 
-		//		
-		//		
+		//
+		//
+		//		For User specific operations.
+		//
+		//
 		Object sasThreadLocal = SASThreadLocal.getThreadLocal();
 
 		if (isReverting) {
@@ -223,4 +227,4 @@ public class MotivatorISMDefaultUpgradeHandler extends UpgradeHandler {
 			}
 		} while (!dsempty);
 	}
-}
+}*/

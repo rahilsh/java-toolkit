@@ -1,4 +1,4 @@
-package in.zeta.jasper;
+package in.jasper;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

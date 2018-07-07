@@ -71,7 +71,7 @@ public class JasperUtil {
       dr = buildReport();
       // con = createSQLConnection();
       // jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), con,params );
-      // ReportExporter.exportReport(jp, System.getProperty("user.dir")+
+      // ReportExporter.exportReport(jp, System.getProperty("employee.dir")+
       // "/target/"+this.getClass().getName()+".pdf");
       jr = DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager(), params);
     } catch (Exception e) {

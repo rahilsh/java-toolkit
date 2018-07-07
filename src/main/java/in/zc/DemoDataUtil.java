@@ -34,7 +34,7 @@ public class DemoDataUtil {
  		int dataYear = 2016;
  		//Set the number of Users in the Org
  		int orgUserCount = 4;
- 		//Set records per user range for each module
+ 		//Set records per employee range for each module
  		HashMap<String, Integer[]> userRecordCountMap = new HashMap<String, Integer[]>();
  		userRecordCountMap.put("Leads", new Integer[] { 3, 9 });
  		userRecordCountMap.put("Accounts", new Integer[] { 1, 3 });

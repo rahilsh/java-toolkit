@@ -10,6 +10,7 @@ public class MapTest {
   public static void main(String[] args) {
     Map<String, String> postingAttributes = new HashMap<>();
     postingAttributes.put("a",null);
+    postingAttributes.remove("b");
     postingAttributes.put("b","a");
     if (postingAttributes.get("c")!=null && postingAttributes.get("b").equals("a")){
       System.out.println("if");
@@ -31,6 +32,9 @@ public class MapTest {
 //        getPayoutID("Towards Payout 11111", ImmutableMap.of("corpben.payoutID", "asb")));
 //    System.out.println(getPayoutID("dummy", ImmutableMap.of("corpben.payoutID", "asb")) == null);
 //    System.out.println(getPayoutID("dummy", ImmutableMap.of("corpben.payoutID", "66666")));
+    Map<String,String> map = new HashMap<>();
+    map.put("a","b");
+    System.out.println("map.0"+map.values().toString());
   }
 
   private static Long getPayoutID(String remarks, Map<String, String> postingAttributes) {

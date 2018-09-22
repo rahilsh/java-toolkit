@@ -13,5 +13,7 @@ public class GsonTest {
     Map<String, List<String>> amcMap =
         new Gson().fromJson(amcList, new TypeToken<Map<String, List<String>>>() {}.getType());
     System.out.println(amcMap.values().stream().flatMap(List::stream).collect(Collectors.toList()));
+
+    System.out.println(new Gson().toJson(null).equals("null"));
   }
 }

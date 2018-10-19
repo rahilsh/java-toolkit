@@ -5,20 +5,18 @@ import java.time.ZoneOffset;
 
 public class StartDateAndEndDateOfMonth {
   public static void main(String[] args) {
-    LocalDate today = LocalDate.now();
+    System.out.println(LocalDate.now().withDayOfMonth(1).atStartOfDay(ZoneOffset.UTC).toInstant());
     System.out.println(
-        today
-            .withDayOfMonth(1)
-            .minusMonths(1)
+        LocalDate.now()
+            .withDayOfMonth(LocalDate.now().lengthOfMonth())
             .atStartOfDay(ZoneOffset.UTC)
-            .toInstant()
-            .toEpochMilli());
-    System.out.println(
-        today
-            .withDayOfMonth(today.lengthOfMonth())
-            .minusMonths(1)
-            .atStartOfDay(ZoneOffset.UTC)
-            .toInstant()
-            .toEpochMilli());
+            .toInstant());
+
+    //    Date input = new Date();
+    //    input.setDate(5);
+    //    input.setMonth(5);
+    //    LocalDate date = input.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    //    System.out.println(
+    //        date.withDayOfMonth(1).minusMonths(1).atStartOfDay(ZoneOffset.UTC).toInstant());
   }
 }

@@ -30,19 +30,21 @@ public class PdfToImage {
 
   public static final String USER_BILLS_URL =
       "https://api.gw.zetapay.in/zeta.in/biller/1.0/userBills?"
-          + "token=RHg1VkhOaFpHK1d6Q25hSU9JWGJwbHQ5SzhqS3dyaTRBdjZwNVVKbGpuZWIzc1d3Ok"
-          + "FRR0IrMllnNTdnb2RwOUtVa1RRNTgrdm1OaXVKOVpjK2VlbW9PVE9qM2NFa2hSUTIxMUZwWE"
-          + "1WU1B5MUYyT1dodVhpVDl5WTFFR1ZqNSt5YnJFVERPZlhmMkJsOThLYmVUU0MwbTZIbFNNYi"
-          + "s0UkhRUVZ6Si9RcWNDaFRzL0dzUEN1TUUwVE9tM3AzLzViU3dwZER3bTB6MWVXeE0vST0="
+          + "token=U3N5VTlXMndFZGFyK1hhbzR5Y1BraEl3RTl2RExzRU1"
+          + "4MU0vSkxSb1Vjc3M5ZXJpOkFRRUM2UXNyWTBtanlRZFZ4WEp0"
+          + "LzlpMjJSbXRFWVNUVmdqUTA0WjlHUG1rNWw1RTBQTmdla3FSM0"
+          + "NjV2h6ZEVaaW15QldDdURXOEtiUndmcDNRVys0c0tQQmhoSDNE"
+          + "TmpIRzI3S01acDhlNkhvYnJHcytGOXJycHdSMGc1cjVZTUI2TU"
+          + "dWMHAvRHFnWEtvMlE0OU43UT09"
           + "&userID=%s&cardProgramID=%s&count=100";
   public static final String CSV_FILE_PATH =
-      "/Users/rahil.r/Documents/practo_communication_1.csv";
+      "/Users/rahil.r/Documents/temp/practo/july_sept/gadget_1.csv";
 
   public static final String BASE_PATH_FOR_SAVING_BILLS =
-      "/Users/rahil.r/Documents/temp/practo_java/communication/";
+      "/Users/rahil.r/Documents/temp/practo/july_sept/java_gadget/";
   private static final String SLASH = "/";
   private static Gson gson = new Gson();
-  private static String cardProgramID = "34183b45-be16-4177-a144-b5559f71cf34";
+  private static String cardProgramID = "23c65c87-444a-4eb7-af70-bfb36ff91f3b";
   private static HttpClient httpClient = new HttpClient();
 
   public static void main(String[] args) throws IOException {
@@ -137,10 +139,9 @@ public class PdfToImage {
             .filter(number -> !number.isEmpty())
             .orElse(bill.getAsJsonObject().get("claimId").getAsString().replace("/", "_"));
     System.out.println("Processing bill number: " + billNumber);
-    if(billNumber.equals("702023586") || billNumber.equals("303288323")
-        || billNumber.equals("618178522") || billNumber.equals("531690890") || billNumber.equals("379684094")){
-      return;
-    }
+//    if(billNumber.equals("3983928468") ){
+//      return;
+//    }
     String billState = bill.getAsJsonObject().get("state").getAsString();
     if (ImmutableList.of("APPROVED", "UNPAID", "PARTIALLY_PAID", "PAID").contains(billState)) {
       String billFolderPath = userPath + SLASH + "bills/" + billNumber;
@@ -166,7 +167,7 @@ public class PdfToImage {
   private static void handleBillAsPdf(
       String billNumber, String billFolderPath, int count, Headers headers, String extn)
       throws IOException {
-    if (headers.get("content-type").equals("application/pdf")) {
+    if (headers.get("Content-Type").equals("application/pdf")) {
       Path pdfPath = Paths.get(billFolderPath + SLASH + billNumber + "_" + count + extn);
       PDDocument document = null;
       try {
@@ -196,13 +197,13 @@ public class PdfToImage {
   }
 
   private static String getExtension(Headers headers) {
-    if (headers.get("content-type").equals("application/pdf")) {
+    if (headers.get("Content-Type").equals("application/pdf")) {
       return ".pdf";
     }
-    if (headers.get("content-type").equals("image/png")) {
+    if (headers.get("Content-Type").equals("image/png")) {
       return ".png";
     }
-    if (headers.get("content-type").equals("image/jpeg")) {
+    if (!headers.get("Content-Type").equals("image/jpeg")) {
       System.out.println("Bill not jpg or pdf or png");
     }
     return ".jpg";

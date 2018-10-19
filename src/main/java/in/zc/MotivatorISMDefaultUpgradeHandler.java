@@ -15,7 +15,7 @@ import jp.skydesk.sales.cache.ThreadCache;
 import jp.skydesk.sales.job.NotificationJob.NotificationType;
 import jp.skydesk.sales.store.SasStore;
 
-import com.adventnet.db.api.RelationalAPI;
+import com.adventnet.connection.api.RelationalAPI;
 import com.adventnet.ds.query.Column;
 import com.adventnet.ds.query.Criteria;
 import com.adventnet.ds.query.DataSet;

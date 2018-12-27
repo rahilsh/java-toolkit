@@ -9,7 +9,7 @@ public class MySQLConnection implements Connection {
   }
 
   public void close() {
-    //TODO: return connection back to connection pool
+    // TODO: return connection back to connection pool
   }
 
   public Object execute(Object query) {

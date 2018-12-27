@@ -21,7 +21,7 @@ package in.problems;
 ** 1 1 1
 ** 2 1
 ** 1 2
-** 3
+** 3z
 */
 
 public class StairCase {

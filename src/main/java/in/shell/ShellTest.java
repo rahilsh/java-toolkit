@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 public class ShellTest {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+
 		StringBuffer output = new StringBuffer();
 		Process p;
 		BufferedReader reader = null;
@@ -30,10 +30,10 @@ public class ShellTest {
 			String sOutput = output.toString();
 			System.out.println(sOutput);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 	}

@@ -6,7 +6,7 @@ import java.util.List;
 public class FullPathFinder {
 
   public static void main(String[] args) {
-    // TODO Auto-generated method stub
+
     List<String> paths = getPaths();
     List<AuditLog> reports = getReports();
     List<String> result = new ArrayList<String>();
@@ -912,7 +912,7 @@ public class FullPathFinder {
   }
 
   private static List<String> getPaths() {
-    // TODO Auto-generated method stub
+
 
     List<String> list = new ArrayList<String>();
     list.add("/Reports/prod/Audit/Corp_Data_Recent");

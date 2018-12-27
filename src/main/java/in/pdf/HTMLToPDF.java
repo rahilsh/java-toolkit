@@ -33,7 +33,7 @@ public class HTMLToPDF {
 
       out.close();
     } catch (com.lowagie.text.DocumentException | IOException e) {
-      // TODO Auto-generated catch block
+
       e.printStackTrace();
     }
   }

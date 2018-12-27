@@ -90,7 +90,7 @@ public class SortKeys {
       System.out.println(jsonObj1.hashCode());
 
     } catch (JSONException e) {
-      // TODO Auto-generated catch block
+
       e.printStackTrace();
     }
   }

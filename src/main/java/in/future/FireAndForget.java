@@ -29,7 +29,7 @@ public class FireAndForget {
                         .asString();
                 for (int i = 0; i < 1000000; i++) {
                   Headers headers = json.getHeaders();
-                  System.out.println(i);
+                  //System.out.println(i);
                 }
                 System.out.println("Content Type: " + json.getHeaders().get("Content-Type"));
               } catch (UnirestException e) {

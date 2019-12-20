@@ -30,7 +30,7 @@ public class ZendeskTickets {
             System.out.printf("Processing %s no. %s ", csvRecord.get(0), count);
             Response response =
                 httpClient.get(
-                    "https://zeta.zendesk.com/api/v2/requests/" + csvRecord.get(0) + ".json",
+                    "https://mydomain.zendesk.com/api/v2/requests/" + csvRecord.get(0) + ".json",
                     Headers.of(
                         "Authorization", "Basic cmFoaWxyQHpldGEudGVjaDpaZXRhWmVuZGVza0AxNDUw"));
             JsonObject ticket = gson.fromJson(response.body().string(), JsonObject.class);

@@ -25,11 +25,11 @@ public class GeneratePDF {
   public static void main(String[] args) {
     List<String> userFolders = new ArrayList<>();
     userFolders.add(
-        "/tmp/corpben/export_docs/4/TestCorp_1_3171/New Company_9526/Petro Card_05319a16-1a08-44eb-a410-c0468879f4d7/mohammedsh@zeta.tech");
+        "/tmp/corpben/export_docs/4/TestCorp_1_3171/New Company_9526/Petro Card_05319a16-1a08-44eb-a410-c0468879f4d7/mohammedsh@gmail.com");
     userFolders.add(
-        "/tmp/corpben/export_docs/4/TestCorp_1_3171/New Company_9526/Petro Card_05319a16-1a08-44eb-a410-c0468879f4d7/priyar@zeta.tech");
+        "/tmp/corpben/export_docs/4/TestCorp_1_3171/New Company_9526/Petro Card_05319a16-1a08-44eb-a410-c0468879f4d7/priyar@gmail.com");
     userFolders.add(
-        "/tmp/corpben/export_docs/4/TestCorp_1_3171/New Company_9526/Petro Card_05319a16-1a08-44eb-a410-c0468879f4d7/rahilr@zeta.tech");
+        "/tmp/corpben/export_docs/4/TestCorp_1_3171/New Company_9526/Petro Card_05319a16-1a08-44eb-a410-c0468879f4d7/rahilr@gmail.com");
 
     userFolders.forEach(
         userFolder -> {

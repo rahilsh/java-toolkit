@@ -19,7 +19,7 @@ import java.util.List;
 public class File {
   public static void main(String[] args) {
     String actualPath =
-        "/tmp/corpben/export_docs/6/TestCorp_1_3171/New Company_9526/Petro Card_05319a16-1a08-44eb-a410-c0468879f4d7/priyar@zeta.tech";
+        "/tmp/corpben/export_docs/6/TestCorp_1_3171/New Company_9526/Petro Card_05319a16-1a08-44eb-a410-c0468879f4d7/priyar@gmail.com";
     try {
       Files.walk(Paths.get(actualPath), 4)
           .filter(Files::isDirectory)

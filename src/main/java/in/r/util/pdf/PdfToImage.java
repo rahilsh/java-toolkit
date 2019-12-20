@@ -30,7 +30,7 @@ import org.apache.pdfbox.tools.imageio.ImageIOUtil;
 public class PdfToImage {
 
   public static final String USER_BILLS_URL =
-      "https://api.gw.zetapay.in/zeta.in/biller/1.0/userBills?"
+      "https://localhost/getUserBills?"
           + "token=U3N5VTlXMndFZGFyK1hhbzR5Y1BraEl3RTl2RExzRU1"
           + "4MU0vSkxSb1Vjc3M5ZXJpOkFRRUM2UXNyWTBtanlRZFZ4WEp0"
           + "LzlpMjJSbXRFWVNUVmdqUTA0WjlHUG1rNWw1RTBQTmdla3FSM0"

@@ -2,7 +2,7 @@ package in.r.util.split;
 
 public class URLSplitter {
   public static void main(String[] args) {
-    String url = "https://zeta-s3-bucket-permanent-staging-report.s3.amazonaws.com/88714d0e-67f2-464a-a5b9-afd20ed769d5/";
+    String url = "https://bucket.s3.amazonaws.com/88714d0e-67f2-464a-a5b9-afd20ed769d5/";
     System.out.println(getKey(url));
   }
 

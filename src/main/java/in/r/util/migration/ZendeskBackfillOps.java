@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.sql.SQLException;
-import java.util.Map;
 import okhttp3.Headers;
 import okhttp3.Response;
 import org.apache.commons.csv.CSVFormat;
@@ -18,56 +16,15 @@ import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
 public class ZendeskBackfillOps {
-  public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException {
+  public static void main(String[] args) throws IOException {
     backFillCorpIDs();
   }
 
-  private static void backFillCorpIDs() throws IOException, ClassNotFoundException, SQLException {
+  private static void backFillCorpIDs() throws IOException {
 
-    //    CSVUtil csvHelper = new CSVUtil();
-    //
-    //    List<Ticket> tickets =
-    //        csvHelper.readCSVFile("zendesk.csv", Ticket.class);
     int count = 0;
     Gson gson = new Gson();
     HttpClient httpClient = new HttpClient();
-//        try {
-//          Class.forName("com.mysql.jdbc.Driver");
-//          Connection corpben =
-//              DriverManager.getConnection(
-//                  "jdbc:mysql://prodaxs.corp.zeta.in:13306/corp", "rahilr", "R83cE%!23ioMisS");
-//          // here sonoo is database name, root is username and password
-//          Statement stmt = corpben.createStatement();
-//          ResultSet rs = stmt.executeQuery("select * from employee limit 10");
-//
-//          while (rs.next())
-//            System.out.println(rs.getInt(1) + "  " + rs.getString(2) + "  " + rs.getString(3));
-//          corpben.close();
-//        } catch (Exception e) {
-//          System.out.println(e);
-//        }
-
-//        Connection zetauser = null;
-//        Statement stmt = null;
-//        try {
-//          Class.forName("org.postgresql.Driver");
-//          zetauser =
-//              DriverManager.getConnection(
-//                  "jdbc:postgresql://10.19.2.148:5432/reporting", "rahilr", "3YuzM6ras7");
-//
-//          stmt = zetauser.createStatement();
-//          String sql = "select * from zetauser.user_profiles limit 10";
-//          ResultSet rs = stmt.executeQuery(sql);
-//          while (rs.next())
-//            System.out.println(rs.getInt(1) + "  " + rs.getString(2) + "  " + rs.getString(3));
-//          stmt.close();
-//          zetauser.close();
-//        } catch (Exception e) {
-//          e.printStackTrace();
-//          System.err.println(e.getClass().getName() + ": " + e.getMessage());
-//          System.exit(0);
-//        }
-    //    System.out.println("Opened database successfully");
     try (Reader reader =
             Files.newBufferedReader(Paths.get("/Users/rahil.r/Documents/zendesk.csv"));
         CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT);
@@ -103,7 +60,7 @@ public class ZendeskBackfillOps {
           count++;
           Response response =
               httpClient.get(
-                  "https://zeta.zendesk.com/api/v2/requests/" + csvRecord.get(0) + ".json",
+                  "https://mydomain.zendesk.com/api/v2/requests/" + csvRecord.get(0) + ".json",
                   Headers.of(
                       "Authorization", "Basic cmFoaWxyQHpldGEudGVjaDpaZXRhWmVuZGVza0AxNDUw"));
           JsonObject ticket = gson.fromJson(response.body().string(), JsonObject.class);
@@ -116,7 +73,7 @@ public class ZendeskBackfillOps {
               gson.fromJson(
                   httpClient
                       .get(
-                          "https://zeta.zendesk.com/api/v2/users/" + userId + ".json",
+                          "https://mydomain.zendesk.com/api/v2/users/" + userId + ".json",
                           Headers.of(
                               "Authorization",
                               "Basic cmFoaWxyQHpldGEudGVjaDpaZXRhWmVuZGVza0AxNDUw"))
@@ -157,9 +114,9 @@ public class ZendeskBackfillOps {
               email,
               phone);
         }
-//        if (count > 3) {
-//          break;
-//        }
+        //        if (count > 3) {
+        //          break;
+        //        }
       }
     }
     System.out.println(count);

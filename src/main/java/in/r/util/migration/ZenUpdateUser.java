@@ -32,7 +32,7 @@ public class ZenUpdateUser {
     Gson gson = new Gson();
     HttpClient httpClient = new HttpClient();
     // Map<Long, Long> o = gson.fromJson("{\"12\":12}", REVIEW_TYPE);
-    Connection zetauser = null;
+    Connection connection = null;
     Statement stmt = null;
 
     Connection corpben = null;
@@ -42,15 +42,15 @@ public class ZenUpdateUser {
     try {
       Class.forName("org.postgresql.Driver");
       Class.forName("com.mysql.jdbc.Driver");
-      zetauser =
+      connection =
           DriverManager.getConnection(
               "jdbc:postgresql://10.19.2.148:5432/reporting", "rahilr", "3YuzM6ras7");
 
-      stmt = zetauser.createStatement();
+      stmt = connection.createStatement();
 
       corpben =
           DriverManager.getConnection(
-              "jdbc:mysql://prodaxs.corp.zeta.in:13306/corp", "rahilr", "R83cE%!23ioMisS");
+              "jdbc:mysql://localhost:13306/dbname", "rahilr", "R83cE%!23ioMisS");
 
       statement = corpben.createStatement();
 
@@ -69,18 +69,17 @@ public class ZenUpdateUser {
                       "ZendeskUserId",
                       "email",
                       "phone",
-                      "ZetaUserIds",
+                      "userIds",
                       "corpId",
                       "Status")); ) {
-        map.keySet()
-            .stream()
+        map.keySet().stream()
             .forEach(
                 userId -> {
                   String status = "";
                   Long ticketId = map.get(userId);
                   String email = null;
                   String phone = null;
-                  List<Long> zetaUserIds = new ArrayList<>();
+                  List<Long> userIds = new ArrayList<>();
                   System.out.printf("Processing %s,%s", ticketId, userId);
                   JsonObject user = null;
                   ResultSet rs = null;
@@ -91,7 +90,7 @@ public class ZenUpdateUser {
                         gson.fromJson(
                             httpClient
                                 .get(
-                                    "https://zeta.zendesk.com/api/v2/users/" + userId + ".json",
+                                    "https://mydomain.zendesk.com/api/v2/users/" + userId + ".json",
                                     Headers.of(
                                         "Authorization",
                                         "Basic cmFoaWxyQHpldGEudGVjaDpaZXRhWmVuZGVza0AxNDUw"))
@@ -114,30 +113,30 @@ public class ZenUpdateUser {
                       String sql = "";
                       if (email != null && !email.isEmpty()) {
                         sql =
-                            "select userid, attrs->>'isCorpUser' from zetauser.user_profiles where userid in "
-                                + "(select userid from zetauser.emails where email = '"
+                            "select userid, attrs->>'isCorpUser' from user_profiles where userid in "
+                                + "(select userid from emails where email = '"
                                 + email
                                 + "')";
 
                         rs = finalStmt.executeQuery(sql);
                         while (rs.next()) {
-                          zetaUserIds.add(rs.getLong(1));
+                          userIds.add(rs.getLong(1));
                         }
                       }
-                      if (zetaUserIds.isEmpty()) {
+                      if (userIds.isEmpty()) {
                         sql =
-                            "select userid, attrs->>'isCorpUser' from zetauser.user_profiles\n"
+                            "select userid, attrs->>'isCorpUser' from user_profiles\n"
                                 + "where mobilenumber = '"
                                 + phone
                                 + "'";
                         rs = finalStmt.executeQuery(sql);
                         while (rs.next()) {
-                          zetaUserIds.add(rs.getLong(1));
+                          userIds.add(rs.getLong(1));
                         }
                       }
 
-                      if (!zetaUserIds.isEmpty()) {
-                        System.out.print(". " + StringUtils.join(zetaUserIds, " AND "));
+                      if (!userIds.isEmpty()) {
+                        System.out.print(". " + StringUtils.join(userIds, " AND "));
                         sql =
                             "select corporateid\n"
                                 + "from corp.company\n"
@@ -146,7 +145,7 @@ public class ZenUpdateUser {
                                 + "             where id in\n"
                                 + "                   (select order_id from corp.payout where id = "
                                 + "(select max(id) from corp.payout where user_id in ("
-                                + StringUtils.join(zetaUserIds, ",")
+                                + StringUtils.join(userIds, ",")
                                 + "))))";
 
                         rs1 = finalStatement.executeQuery(sql);
@@ -169,7 +168,7 @@ public class ZenUpdateUser {
                           jsonObject.add("user", userFields);
 
                           httpClient.put(
-                              "https://zeta.zendesk.com/api/v2/users/" + userId + ".json",
+                              "https://mydomain.zendesk.com/api/v2/users/" + userId + ".json",
                               gson.toJson(jsonObject),
                               ImmutableMap.of(
                                   "Authorization",
@@ -181,8 +180,7 @@ public class ZenUpdateUser {
                           status = "No payouts for user!";
                         }
                       } else {
-                        status =
-                            String.format("No zeta user for email %s and phone %s", email, phone);
+                        status = String.format("No user for email %s and phone %s", email, phone);
                       }
                     }
                     System.out.println(". Status: " + status);
@@ -192,7 +190,7 @@ public class ZenUpdateUser {
                         userId,
                         email,
                         phone,
-                        StringUtils.join(zetaUserIds, " AND "),
+                        StringUtils.join(userIds, " AND "),
                         corpId,
                         status);
 
@@ -202,7 +200,7 @@ public class ZenUpdateUser {
                         userId,
                         email,
                         phone,
-                        StringUtils.join(zetaUserIds, " AND "),
+                        StringUtils.join(userIds, " AND "),
                         corpId,
                         status);
                     System.out.println();
@@ -236,9 +234,8 @@ public class ZenUpdateUser {
         stmt.close();
       } catch (SQLException e) {
         e.printStackTrace();
-
       }
-      zetauser.close();
+      connection.close();
     }
   }
 }

@@ -11,7 +11,7 @@ import javax.xml.stream.XMLStreamException;
 import org.apache.commons.io.IOUtils;
 
 public class XMLParser {
-  public static void main(String[] args) throws XMLStreamException, IOException {
+  public static void main(String[] args) throws IOException {
     JacksonXmlModule xmlModule = new JacksonXmlModule();
     xmlModule.setDefaultUseWrapper(false);
     ObjectMapper objectMapper = new XmlMapper(xmlModule);

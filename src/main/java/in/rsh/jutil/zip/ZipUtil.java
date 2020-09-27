@@ -7,9 +7,9 @@ import java.nio.file.Paths;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-public class ZipTest {
+public class ZipUtil {
 
-  public void pack(String source, String zipFilePath) throws IOException {
+  public static void pack(String source, String zipFilePath) throws IOException {
     Path zipPath = Files.createFile(Paths.get(zipFilePath));
     try (ZipOutputStream zs = new ZipOutputStream(Files.newOutputStream(zipPath))) {
       Path sourcePath = Paths.get(source);

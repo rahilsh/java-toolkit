@@ -6,7 +6,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Injector;
 import in.rsh.jutil.modules.PropertiesModule;
 
-public class Main {
+public class InjectorProvider {
 
   static Injector getInjector() {
     Injector injector =

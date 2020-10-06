@@ -11,8 +11,7 @@ import java.security.PublicKey;
 
 public class GenerateKeys {
 
-  private KeyPairGenerator keyGen;
-  private KeyPair pair;
+  private final KeyPairGenerator keyGen;
   private PrivateKey privateKey;
   private PublicKey publicKey;
 
@@ -22,7 +21,7 @@ public class GenerateKeys {
   }
 
   public void createKeys() {
-    this.pair = this.keyGen.generateKeyPair();
+    KeyPair pair = this.keyGen.generateKeyPair();
     this.privateKey = pair.getPrivate();
     this.publicKey = pair.getPublic();
   }
@@ -38,10 +37,10 @@ public class GenerateKeys {
   public void writeToFile(String path, byte[] key) throws IOException {
     File f = new File(path);
     f.getParentFile().mkdirs();
-    FileOutputStream fos = new FileOutputStream(f);
-    fos.write(key);
-    fos.flush();
-    fos.close();
+    try (FileOutputStream fos = new FileOutputStream(f)) {
+      fos.write(key);
+      fos.flush();
+    }
   }
 
   public static void main(String[] args) {
@@ -52,9 +51,7 @@ public class GenerateKeys {
       gk.writeToFile("/Users/rahil.r/Documents/KeyPair/publicKey", gk.getPublicKey().getEncoded());
       gk.writeToFile(
           "/Users/rahil.r/Documents/KeyPair/privateKey", gk.getPrivateKey().getEncoded());
-    } catch (NoSuchAlgorithmException e) {
-      System.err.println(e.getMessage());
-    } catch (IOException e) {
+    } catch (NoSuchAlgorithmException | IOException e) {
       System.err.println(e.getMessage());
     }
   }

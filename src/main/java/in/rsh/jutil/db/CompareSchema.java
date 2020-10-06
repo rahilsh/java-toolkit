@@ -24,7 +24,8 @@ public class CompareSchema {
       String[] types = {"TABLE"};
       ResultSet resultSet = mysqlConn.getMetaData().getTables(databaseName, null, "%", types);
       String[] tableName = new String[200];
-      int i = 0, tableCount = 0;
+      int i = 0;
+      int tableCount = 0;
       while (resultSet.next()) {
         tableName[i] = resultSet.getString(3);
         i++;

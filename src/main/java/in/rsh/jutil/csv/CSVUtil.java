@@ -8,6 +8,7 @@ import com.opencsv.bean.HeaderColumnNameMappingStrategy;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.List;
+import java.util.Objects;
 
 public class CSVUtil {
 
@@ -24,7 +25,8 @@ public class CSVUtil {
     String result = "";
     ClassLoader classLoader = getClass().getClassLoader();
     try {
-      result = IOUtils.toString(classLoader.getResourceAsStream(fullFileName));
+      result =
+          IOUtils.toString(Objects.requireNonNull(classLoader.getResourceAsStream(fullFileName)));
     } catch (IOException e) {
       e.printStackTrace();
     }

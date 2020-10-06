@@ -64,11 +64,9 @@ public class ZendeskBackfillOps {
                   Headers.of(
                       "Authorization", "Basic cmFoaWxyQHpldGEudGVjaDpaZXRhWmVuZGVza0AxNDUw"));
           JsonObject ticket = gson.fromJson(response.body().string(), JsonObject.class);
-          // System.out.println(gson.toJson(json));
           System.out.println(ticket.get("request").getAsJsonObject().get("requester_id"));
           long userId = ticket.get("request").getAsJsonObject().get("requester_id").getAsLong();
 
-          // System.out.println("userId=" + userId);
           JsonObject user =
               gson.fromJson(
                   httpClient
@@ -81,12 +79,10 @@ public class ZendeskBackfillOps {
                       .string(),
                   JsonObject.class);
 
-          // System.out.println(user.get("user").getAsJsonObject().get("email"));
           String email =
               !user.get("user").getAsJsonObject().get("email").isJsonNull()
                   ? user.get("user").getAsJsonObject().get("email").getAsString()
                   : null;
-          // System.out.println(user.get("user").getAsJsonObject().get("phone"));
           String phone =
               !user.get("user").getAsJsonObject().get("phone").isJsonNull()
                   ? user.get("user").getAsJsonObject().get("phone").getAsString()

@@ -1,2 +1,2 @@
 ticketId,Date (Ticket Created),Date (Ticket Last Updated),Date (Ticket Solved),Type,Category,Sub Category,Ticket Group,Ticket Status,corpId,Ticket Requester Domain,Z Channel,# SLA tickets,# SLAs Achieved,# SLAs Breached (Total),% Achieved,% Breached
-524746,7/1/18,7/8/18,7/1/18,Complaint,Corporate Benefit Related,Meal voucher not received - Routed to HR,L1 - Support,Closed,5254,accenture.com,App,1,0,1,0,1
+524746,7/1/18,7/8/18,7/1/18,Complaint,Category,Sub Category,L1 - Support,Closed,5254,accenture.com,App,1,0,1,0,1

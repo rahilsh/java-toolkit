@@ -14,7 +14,7 @@ public class StackUtil {
     }
   }
 
-  private static void removeAllOccurrances(Stack<String> stack, String toRemove) {
+  private static void removeAllOccurrences(Stack<String> stack, String toRemove) {
     stack.removeIf(s -> s.equals(toRemove));
   }
 }

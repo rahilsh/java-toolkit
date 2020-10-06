@@ -14,7 +14,7 @@ import lombok.Getter;
 
 public class ParserJasperXML {
 
-  public static void main(String[] args) throws XMLStreamException, IOException {
+  public static void main(String[] args) throws IOException {
     JacksonXmlModule xmlModule = new JacksonXmlModule();
     xmlModule.setDefaultUseWrapper(false);
     ObjectMapper objectMapper = new XmlMapper(xmlModule);

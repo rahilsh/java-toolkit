@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
-import net.sf.jasperreports.engine.util.JRStyledText.Run;
 import okhttp3.Headers;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -25,7 +24,7 @@ public class HttpClient {
           .readTimeout(1, TimeUnit.MINUTES)
           .build();
 
-  public Response get(String url, Headers headers)  {
+  public Response get(String url, Headers headers) {
     Request request = new Request.Builder().url(url).get().headers(headers).build();
     try {
       return okHttpClient.newCall(request).execute();
@@ -43,8 +42,8 @@ public class HttpClient {
   private static Void fireAndForget(String url, String body, Map<String, String> headers)
       throws ExecutionException, InterruptedException {
     return CompletableFuture.completedFuture(null)
-        .thenAccept(
-            __ -> {
+        .thenAcceptAsync(
+            ignore -> {
               try {
                 Unirest.post(url).headers(headers).body(body).asString();
               } catch (UnirestException e) {

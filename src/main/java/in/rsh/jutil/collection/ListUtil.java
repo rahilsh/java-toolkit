@@ -8,8 +8,8 @@ import java.util.function.Consumer;
 
 public class ListUtil {
   public static void main(String[] args) {
-    addNumberToList((list) -> list.add(new Integer(1)), Lists.newArrayList(3L));
-    addNumberToList((list) -> list.add(new Long(2L)), Lists.newArrayList(4L));
+    addNumberToList(list -> list.add(1), Lists.newArrayList(3L));
+    addNumberToList(list -> list.add(2L), Lists.newArrayList(4L));
   }
 
   private static void addNumberToList(Consumer<List<Number>> consumer, List<Number> list) {
@@ -18,11 +18,11 @@ public class ListUtil {
 
   public static Integer min(List<Integer> list) {
     Optional<Integer> optionalMin = list.stream().min(Comparator.comparing(Integer::valueOf));
-    return optionalMin.isPresent() ? optionalMin.get() : 0;
+    return optionalMin.orElse(0);
   }
 
   public static Integer max(List<Integer> list) {
     Optional<Integer> optionalMax = list.stream().max(Comparator.comparing(Integer::valueOf));
-    return optionalMax.isPresent() ? optionalMax.get() : 0;
+    return optionalMax.orElse(0);
   }
 }

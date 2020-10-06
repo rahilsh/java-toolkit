@@ -12,44 +12,38 @@ import lombok.Getter;
 public class OptionalTest {
   public static void main(String[] args) {
 
-    System.out.println(Optional.empty().get());
-
     Map<String, String> map1 = new HashMap<>();
     map1.put("name", "a");
-    TestModel testModel = new TestModel(null,null,null);
-    // TestModel testModel = new TestModel(null,null );
+    TestModel testModel = new TestModel(null, null, null);
     System.out.println(
         Optional.ofNullable(testModel)
-            .map(testModel1 -> {
-              System.out.println("testModel1="+testModel1);
-              return testModel1.getMap();
-            })
+            .map(
+                testModel1 -> {
+                  System.out.println("testModel1=" + testModel1);
+                  return testModel1.getMap();
+                })
             .map(
                 map -> {
-                  System.out.println("map="+map);
+                  System.out.println("map=" + map);
                   return map.get("name");
                 })
             .filter(name -> !name.isEmpty())
             .orElseGet(() -> "ord"));
 
-    Optional<String> opt = Optional.ofNullable(map1).map(map2 -> map2.get("name"));
-    System.out.println(opt.empty().isPresent());
-
     List<TestModel> list = new ArrayList<>();
 
-    list.add(new TestModel("a","k", null));
-    list.add(new TestModel("b","k", null));
-    list.add(new TestModel("c","k", null));
-    Map<String, String> map =list.stream().collect(Collectors.toMap(TestModel::getName,TestModel::getEmail));
+    list.add(new TestModel("a", "k", null));
+    list.add(new TestModel("b", "k", null));
+    list.add(new TestModel("c", "k", null));
+    Map<String, String> map =
+        list.stream().collect(Collectors.toMap(TestModel::getName, TestModel::getEmail));
     System.out.println(new Gson().toJson(map));
-
   }
 }
 
 class TestModel {
   private final String name;
-  @Getter
-  private final String email;
+  @Getter private final String email;
   private final Map<String, String> map;
 
   public TestModel(String name, String email, Map<String, String> map) {

@@ -8,8 +8,7 @@ public class PathManipulator {
   public static void main(String[] args) {
     String s = "/00/11/22/";
 
-    Path p=Paths.get(s);
-    System.out.println(
-    p.getParent().toString());
+    Path p = Paths.get(s);
+    System.out.println(p.getParent().toString());
   }
 }

@@ -34,7 +34,6 @@ public class ZendeskTickets {
                     Headers.of(
                         "Authorization", "Basic cmFoaWxyQHpldGEudGVjaDpaZXRhWmVuZGVza0AxNDUw"));
             JsonObject ticket = gson.fromJson(response.body().string(), JsonObject.class);
-            // System.out.println(gson.toJson(json));
             long userId = ticket.get("request").getAsJsonObject().get("requester_id").getAsLong();
             long ticketId = ticket.get("request").getAsJsonObject().get("id").getAsLong();
             System.out.println("UserId: " + userId);
@@ -49,9 +48,6 @@ public class ZendeskTickets {
           System.out.println("Error while processing ticket: " + csvRecord.get(0));
           e.printStackTrace();
         }
-        //        if (count > 10) {
-        //          break;
-        //        }
       }
     }
     System.out.println(gson.toJson(map));

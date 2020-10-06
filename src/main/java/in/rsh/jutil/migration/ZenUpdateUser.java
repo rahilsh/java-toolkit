@@ -28,17 +28,16 @@ import org.apache.commons.lang3.StringUtils;
 public class ZenUpdateUser {
   private static final Type REVIEW_TYPE = new TypeToken<Map<Long, Long>>() {}.getType();
 
-  public static void main(String[] args) throws FileNotFoundException, SQLException {
+  public static void main(String[] args) throws SQLException {
     Gson gson = new Gson();
     HttpClient httpClient = new HttpClient();
     // Map<Long, Long> o = gson.fromJson("{\"12\":12}", REVIEW_TYPE);
     Connection connection = null;
     Statement stmt = null;
 
-    Connection corpben = null;
+    Connection corpCon;
 
-    // here sonoo is database name, root is username and password
-    Statement statement = null;
+    Statement statement;
     try {
       Class.forName("org.postgresql.Driver");
       Class.forName("com.mysql.jdbc.Driver");
@@ -48,11 +47,11 @@ public class ZenUpdateUser {
 
       stmt = connection.createStatement();
 
-      corpben =
+      corpCon =
           DriverManager.getConnection(
               "jdbc:mysql://localhost:13306/dbname", "rahilr", "R83cE%!23ioMisS");
 
-      statement = corpben.createStatement();
+      statement = corpCon.createStatement();
 
       JsonReader reader =
           new JsonReader(new FileReader("/Users/rahil.r/Documents/zen_july_unique_users.json"));
@@ -72,7 +71,7 @@ public class ZenUpdateUser {
                       "userIds",
                       "corpId",
                       "Status")); ) {
-        map.keySet().stream()
+        map.keySet()
             .forEach(
                 userId -> {
                   String status = "";
@@ -231,6 +230,7 @@ public class ZenUpdateUser {
       System.exit(0);
     } finally {
       try {
+        assert stmt != null;
         stmt.close();
       } catch (SQLException e) {
         e.printStackTrace();

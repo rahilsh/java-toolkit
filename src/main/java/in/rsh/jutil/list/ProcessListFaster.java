@@ -8,18 +8,15 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import lombok.AllArgsConstructor;
 
 public class ProcessListFaster {
 
-  public static void main(String[] args) throws ExecutionException, InterruptedException {
+  public static void main(String[] args) {
     int noOfThreads = 10;
 
     List<Item> items = getItems();
     ExecutorService executor = Executors.newFixedThreadPool(noOfThreads);
     long starTime = System.currentTimeMillis();
-    // items.parallelStream().forEach(i -> System.out.println(i.name));
-
     Worker[] workers = new Worker[noOfThreads];
 
     int range = items.size() / 10;
@@ -53,14 +50,14 @@ public class ProcessListFaster {
 
   public static class Worker implements Callable<Object> {
 
-    private List<Item> list;
+    private final List<Item> list;
 
     public Worker(List<Item> list) {
       this.list = list;
     }
 
     @Override
-    public Object call() throws Exception {
+    public Object call() {
       for (Item l : list) {
         System.out.println(l.name);
       }
@@ -68,8 +65,11 @@ public class ProcessListFaster {
     }
   }
 
-  @AllArgsConstructor
   private static class Item {
     String name;
+
+    public Item(String name) {
+      this.name = name;
+    }
   }
 }

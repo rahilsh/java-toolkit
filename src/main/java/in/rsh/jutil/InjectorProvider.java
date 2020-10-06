@@ -9,14 +9,12 @@ import in.rsh.jutil.modules.PropertiesModule;
 public class InjectorProvider {
 
   static Injector getInjector() {
-    Injector injector =
-        createInjector(
-            new AbstractModule() {
-              @Override
-              protected void configure() {
-                install(new PropertiesModule());
-              }
-            });
-    return injector;
+    return createInjector(
+        new AbstractModule() {
+          @Override
+          protected void configure() {
+            install(new PropertiesModule());
+          }
+        });
   }
 }

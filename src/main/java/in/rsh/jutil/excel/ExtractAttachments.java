@@ -10,9 +10,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.poi.ddf.EscherComplexProperty;
@@ -501,12 +503,15 @@ public class ExtractAttachments {
 
     protected EmbeddedData extractFS(DirectoryNode dn, String filename) throws IOException {
       assert (canExtract(dn));
-      POIFSFileSystem dest = new POIFSFileSystem();
-      copyNodes(dn, dest.getRoot());
-      EmbeddedData ed = new EmbeddedData();
-      ed.filename = filename;
-      ByteArrayOutputStream bos = new ByteArrayOutputStream();
-      dest.writeFilesystem(bos);
+      EmbeddedData ed;
+      ByteArrayOutputStream bos;
+      try (POIFSFileSystem dest = new POIFSFileSystem()) {
+        copyNodes(dn, dest.getRoot());
+        ed = new EmbeddedData();
+        ed.filename = filename;
+        bos = new ByteArrayOutputStream();
+        dest.writeFilesystem(bos);
+      }
       bos.close();
       ed.is = new ByteArrayInputStream(bos.toByteArray());
       return ed;
@@ -524,7 +529,7 @@ public class ExtractAttachments {
   static class Ole10Extractor extends EmbeddedExtractor {
     public boolean canExtract(DirectoryNode dn) {
       ClassID clsId = dn.getStorageClsid();
-      return OLE10_PACKAGE.equals(clsId);
+      return Objects.equals(OLE10_PACKAGE.classId, clsId.toString());
     }
 
     public EmbeddedData extract(DirectoryNode dn) throws IOException {
@@ -542,10 +547,10 @@ public class ExtractAttachments {
   }
 
   static class ExcelReader implements Closeable {
-    EmbeddedExtractor extractors[] = {
+    EmbeddedExtractor[] extractors = {
       new Ole10Extractor(), new ExcelExtractor(), new FsExtractor()
     };
-    List<EmbeddedData> embeddings = new ArrayList<EmbeddedData>();
+    List<EmbeddedData> embeddings = new ArrayList<>();
     Workbook wb;
 
     private static EscherOptRecord reflectEscherOptRecord(HSSFShape shape) {
@@ -567,7 +572,7 @@ public class ExtractAttachments {
       for (EscherProperty ep : eor.getEscherProperties()) {
         if ("groupshape.shapename".equals(ep.getName()) && ep.isComplex()) {
           return new String(
-              ((EscherComplexProperty) ep).getComplexData(), Charset.forName("UTF-16LE"));
+              ((EscherComplexProperty) ep).getComplexData(), StandardCharsets.UTF_16LE);
         }
       }
       return null;
@@ -602,9 +607,8 @@ public class ExtractAttachments {
 
     @Override
     public void close() throws IOException {
-      Iterator<EmbeddedData> ed = embeddings.iterator();
-      while (ed.hasNext()) {
-        ed.next().is.close();
+      for (EmbeddedData embedding : embeddings) {
+        embedding.is.close();
       }
       if (wb != null) {
         wb.close();

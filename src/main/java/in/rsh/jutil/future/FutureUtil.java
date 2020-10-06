@@ -11,9 +11,8 @@ public class FutureUtil {
       List<CompletionStage<T>> completionStages) {
     return CompletableFuture.completedFuture(null)
         .thenApply(
-            __ ->
-                completionStages
-                    .stream()
+            ignore ->
+                completionStages.stream()
                     .map(future -> future.toCompletableFuture().join())
                     .collect(Collectors.toList()));
   }

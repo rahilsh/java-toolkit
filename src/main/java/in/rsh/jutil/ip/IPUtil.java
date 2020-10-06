@@ -8,19 +8,21 @@ import org.apache.commons.validator.routines.InetAddressValidator;
 
 public class IPUtil {
 
-  public static boolean isIPInRange(String cidrRange, String[] ips) {
+  private IPUtil() {}
+
+  public static boolean areIPsInRange(String cidrRange, String[] ips) {
     SubnetUtils utils = new SubnetUtils(cidrRange);
     Optional<String> any =
         Stream.of(ips)
             .filter(
                 ip -> {
                   if (ip != null && !ip.isEmpty()) {
-                    return utils.getInfo().isInRange(ip.trim());
+                    return !utils.getInfo().isInRange(ip.trim());
                   }
-                  return false;
+                  return true;
                 })
             .findAny();
-    return any.isPresent();
+    return !any.isPresent();
   }
 
   private static boolean isValidIP(String ipV4Address) {
@@ -33,7 +35,7 @@ public class IPUtil {
 
   public static boolean areIPsValid(String[] ips) {
     for (String ip : ips) {
-      if (!IPUtil.isValidIP(ip)) {
+      if (!isValidIP(ip)) {
         return false;
       }
     }

@@ -7,7 +7,6 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.google.gson.Gson;
 import java.io.IOException;
-import javax.xml.stream.XMLStreamException;
 import org.apache.commons.io.IOUtils;
 
 public class XMLParser {

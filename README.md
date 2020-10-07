@@ -1,3 +1,3 @@
 # jutil
 
-Contains simple to use utils to write scripts faster
+Contains easy to use utils to write code faster

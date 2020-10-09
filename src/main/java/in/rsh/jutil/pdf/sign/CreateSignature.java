@@ -1,6 +1,9 @@
-/*
-package in.r.gradle.pdf.sign;
+package in.rsh.jutil.pdf.sign;
 
+import java.io.InputStream;
+import org.apache.pdfbox.pdmodel.interactive.digitalsignature.SignatureInterface;
+
+/*
 import java.awt.Color;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
@@ -54,10 +57,17 @@ import org.bouncycastle.operator.ContentSigner;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 import org.bouncycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder;
 import org.bouncycastle.util.Store;
-
+*/
+// TODO: Check if this is needed
 public class CreateSignature implements SignatureInterface {
- // static boolean der = true;
 
+  @Override
+  public byte[] sign(InputStream inputStream) {
+    return new byte[0];
+  }
+  // static boolean der = true;
+
+  /*
   static PrivateKey privateKey;
   static Certificate certificate;
 
@@ -216,118 +226,119 @@ public class CreateSignature implements SignatureInterface {
         }
 
         */
-/* // show background (just for debugging, to see the rect size + position)
-        cs.setNonStrokingColor(Color.white);
-        cs.addRect(-5000, -5000, 10000, 10000);
-        cs.fill();*//*
+  /* // show background (just for debugging, to see the rect size + position)
+  cs.setNonStrokingColor(Color.white);
+  cs.addRect(-5000, -5000, 10000, 10000);
+  cs.fill();*/
+  /*
 
 
-        // show background image
-        // save and restore graphics if the image is too large and needs to be scaled
-        cs.saveGraphicsState();
-        cs.transform(Matrix.getScaleInstance(0.25f, 0.25f));
-        // PDImageXObject img = PDImageXObject.createFromFileByExtension(imageFile, doc);
-        // cs.drawImage(img, 0, 0);
-        cs.restoreGraphicsState();
+          // show background image
+          // save and restore graphics if the image is too large and needs to be scaled
+          cs.saveGraphicsState();
+          cs.transform(Matrix.getScaleInstance(0.25f, 0.25f));
+          // PDImageXObject img = PDImageXObject.createFromFileByExtension(imageFile, doc);
+          // cs.drawImage(img, 0, 0);
+          cs.restoreGraphicsState();
 
-        // show text
-        float fontSize = 10;
-        float leading = fontSize * 1.5f;
-        cs.beginText();
-        cs.setFont(font, fontSize);
-        cs.setNonStrokingColor(Color.black);
-        cs.newLineAtOffset(fontSize, height - leading);
-        cs.setLeading(leading);
-        cs.showText("Digitally Signed By rsh");
-        cs.endText();
-      }
+          // show text
+          float fontSize = 10;
+          float leading = fontSize * 1.5f;
+          cs.beginText();
+          cs.setFont(font, fontSize);
+          cs.setNonStrokingColor(Color.black);
+          cs.newLineAtOffset(fontSize, height - leading);
+          cs.setLeading(leading);
+          cs.showText("Digitally Signed By rsh");
+          cs.endText();
+        }
 
-      // no need to set annotations and /P entry
+        // no need to set annotations and /P entry
 
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      doc.save(baos);
-      return new ByteArrayInputStream(baos.toByteArray());
-    }
-  }
-
-  @Override
-  public byte[] sign(InputStream is) {
-    try {
-      BouncyCastleProvider BC = new BouncyCastleProvider();
-      Store<?> certStore = new JcaCertStore(Collections.singletonList(certificate));
-
-      CMSTypedDataInputStream input = new CMSTypedDataInputStream(is);
-      CMSSignedDataGenerator gen = new CMSSignedDataGenerator();
-      ContentSigner sha512Signer =
-          new JcaContentSignerBuilder("SHA256WithRSA").setProvider(BC).build(privateKey);
-
-      gen.addSignerInfoGenerator(
-          new JcaSignerInfoGeneratorBuilder(
-                  new JcaDigestCalculatorProviderBuilder().setProvider(BC).build())
-              .build(sha512Signer, new X509CertificateHolder(certificate.getEncoded())));
-      gen.addCertificates(certStore);
-      CMSSignedData signedData = gen.generate(input, false);
-
-      //if (der) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        DEROutputStream dos = new DEROutputStream(baos);
-        dos.writeObject(signedData.toASN1Structure());
-        return baos.toByteArray();
-      //} else return signedData.getEncoded();
-    } catch (Exception e) {
-      e.printStackTrace();
-      return null;
+        doc.save(baos);
+        return new ByteArrayInputStream(baos.toByteArray());
+      }
+    }
+
+    @Override
+    public byte[] sign(InputStream is) {
+      try {
+        BouncyCastleProvider BC = new BouncyCastleProvider();
+        Store<?> certStore = new JcaCertStore(Collections.singletonList(certificate));
+
+        CMSTypedDataInputStream input = new CMSTypedDataInputStream(is);
+        CMSSignedDataGenerator gen = new CMSSignedDataGenerator();
+        ContentSigner sha512Signer =
+            new JcaContentSignerBuilder("SHA256WithRSA").setProvider(BC).build(privateKey);
+
+        gen.addSignerInfoGenerator(
+            new JcaSignerInfoGeneratorBuilder(
+                    new JcaDigestCalculatorProviderBuilder().setProvider(BC).build())
+                .build(sha512Signer, new X509CertificateHolder(certificate.getEncoded())));
+        gen.addCertificates(certStore);
+        CMSSignedData signedData = gen.generate(input, false);
+
+        //if (der) {
+          ByteArrayOutputStream baos = new ByteArrayOutputStream();
+          DEROutputStream dos = new DEROutputStream(baos);
+          dos.writeObject(signedData.toASN1Structure());
+          return baos.toByteArray();
+        //} else return signedData.getEncoded();
+      } catch (Exception e) {
+        e.printStackTrace();
+        return null;
+      }
+    }
+
+    public static void main(String[] args) throws IOException, GeneralSecurityException {
+      char[] password = "123456".toCharArray();
+
+      KeyStore keystore = KeyStore.getInstance("PKCS12");
+      keystore.load(new FileInputStream("/Users/rahil.r/Documents/test.p12"), password);
+
+      Enumeration<String> aliases = keystore.aliases();
+      String alias;
+      if (aliases.hasMoreElements()) {
+        alias = aliases.nextElement();
+      } else {
+        throw new KeyStoreException("Keystore is empty");
+      }
+      privateKey = (PrivateKey) keystore.getKey(alias, password);
+      Certificate[] certificateChain = keystore.getCertificateChain(alias);
+      certificate = certificateChain[0];
+
+      File inFile = new File("/Users/rahil.r/Documents/test.pdf");
+      File outFile = new File("/Users/rahil.r/Documents/test_signed.pdf");
+      new CreateSignature().signPdf(inFile, outFile);
     }
   }
 
-  public static void main(String[] args) throws IOException, GeneralSecurityException {
-    char[] password = "123456".toCharArray();
+  class CMSTypedDataInputStream implements CMSTypedData {
+    InputStream in;
 
-    KeyStore keystore = KeyStore.getInstance("PKCS12");
-    keystore.load(new FileInputStream("/Users/rahil.r/Documents/test.p12"), password);
-
-    Enumeration<String> aliases = keystore.aliases();
-    String alias;
-    if (aliases.hasMoreElements()) {
-      alias = aliases.nextElement();
-    } else {
-      throw new KeyStoreException("Keystore is empty");
+    public CMSTypedDataInputStream(InputStream is) {
+      in = is;
     }
-    privateKey = (PrivateKey) keystore.getKey(alias, password);
-    Certificate[] certificateChain = keystore.getCertificateChain(alias);
-    certificate = certificateChain[0];
 
-    File inFile = new File("/Users/rahil.r/Documents/test.pdf");
-    File outFile = new File("/Users/rahil.r/Documents/test_signed.pdf");
-    new CreateSignature().signPdf(inFile, outFile);
-  }
+    @Override
+    public ASN1ObjectIdentifier getContentType() {
+      return PKCSObjectIdentifiers.data;
+    }
+
+    @Override
+    public Object getContent() {
+      return in;
+    }
+
+    @Override
+    public void write(OutputStream out) throws IOException {
+      byte[] buffer = new byte[8 * 1024];
+      int read;
+      while ((read = in.read(buffer)) != -1) {
+        out.write(buffer, 0, read);
+      }
+      in.close();
+    }
+    */
 }
-
-class CMSTypedDataInputStream implements CMSTypedData {
-  InputStream in;
-
-  public CMSTypedDataInputStream(InputStream is) {
-    in = is;
-  }
-
-  @Override
-  public ASN1ObjectIdentifier getContentType() {
-    return PKCSObjectIdentifiers.data;
-  }
-
-  @Override
-  public Object getContent() {
-    return in;
-  }
-
-  @Override
-  public void write(OutputStream out) throws IOException {
-    byte[] buffer = new byte[8 * 1024];
-    int read;
-    while ((read = in.read(buffer)) != -1) {
-      out.write(buffer, 0, read);
-    }
-    in.close();
-  }
-}
-*/

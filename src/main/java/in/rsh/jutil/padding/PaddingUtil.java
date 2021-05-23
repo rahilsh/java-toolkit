@@ -2,8 +2,8 @@ package in.rsh.jutil.padding;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.RandomUtils;
+import org.apache.commons.lang3.RandomUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class PaddingUtil {
 
@@ -15,7 +15,7 @@ public class PaddingUtil {
           55
               + StringUtils.leftPad(uniqueID, 8, '0')
               + StringUtils.leftPad(
-                  String.valueOf(RandomUtils.nextInt(99)), String.valueOf(99).length(), '0'));
+                  String.valueOf(RandomUtils.nextInt()), String.valueOf(99).length(), '0'));
     }
   }
 }

@@ -1,3 +1,3 @@
 # jutil
 
-Contains easy to use utils to write code faster
+Write code faster with really useful Java utilities

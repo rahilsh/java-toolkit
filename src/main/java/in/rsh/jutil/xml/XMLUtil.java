@@ -7,6 +7,7 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import lombok.Getter;
 import org.apache.commons.io.IOUtils;
 
 public class XMLUtil {
@@ -22,8 +23,9 @@ public class XMLUtil {
   }
 
   public static void main(String[] args) throws IOException {
-    String xmlString = "<a></a>";
-    new XMLUtil().parseXML(IOUtils.toInputStream(xmlString), Resources.class);
+    String xmlString = "<Person><age>4</age></Person>";
+    Person resources = new XMLUtil().parseXML(IOUtils.toInputStream(xmlString), Person.class);
+    System.out.println(resources.getAge());
   }
 
   public <T> T parseXML(String xmlPath, Class<T> tClass) throws IOException {
@@ -32,5 +34,10 @@ public class XMLUtil {
 
   public <T> T parseXML(InputStream xml, Class<T> tClass) throws IOException {
     return objectMapper.readValue(xml, tClass);
+  }
+
+  @Getter
+  private static class Person {
+    public String age;
   }
 }

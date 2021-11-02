@@ -8,9 +8,9 @@ import java.util.Date;
 
 public class DayAndMonthOfGivenDate {
   public static void main(String[] args) throws ParseException {
-    String lastBillUploadDate = "2019-08-05T01:00:00.000Z";
+    String dateString = "2019-08-05T01:00:00.000Z";
     SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-    Date date = df1.parse(lastBillUploadDate);
+    Date date = df1.parse(dateString);
     Calendar cal = Calendar.getInstance();
     cal.setTime(date);
     int day = cal.get(Calendar.DATE);

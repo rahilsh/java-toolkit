@@ -23,7 +23,7 @@ public class ZendeskTickets {
     Map<Long, Long> map = new HashMap<>();
     try (Reader reader =
             Files.newBufferedReader(Paths.get("/Users/rahil.r/Documents/zendesk.csv"));
-        CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT); ) {
+        CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT)) {
       for (CSVRecord csvRecord : csvParser) {
         try {
           if (csvRecord.get(9).equals("-") || csvRecord.get(9).isEmpty()) {

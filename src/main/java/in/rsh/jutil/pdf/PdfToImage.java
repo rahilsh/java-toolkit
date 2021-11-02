@@ -16,7 +16,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
-
 import lombok.Builder;
 import lombok.Getter;
 import okhttp3.Headers;
@@ -44,9 +43,9 @@ public class PdfToImage {
   public static final String BASE_PATH_FOR_SAVING_BILLS =
       "/Users/rahil.r/Documents/temp/practo/july_sept/java_gadget/";
   private static final String SLASH = "/";
-  private static Gson gson = new Gson();
-  private static String cardProgramID = "23c65c87-444a-4eb7-af70-bfb36ff91f3b";
-  private static HttpClient httpClient = new HttpClient();
+  private static final Gson gson = new Gson();
+  private static final String cardProgramID = "23c65c87-444a-4eb7-af70-bfb36ff91f3b";
+  private static final HttpClient httpClient = new HttpClient();
 
   public static void main(String[] args) throws IOException {
 
@@ -140,9 +139,9 @@ public class PdfToImage {
             .filter(number -> !number.isEmpty())
             .orElse(bill.getAsJsonObject().get("claimId").getAsString().replace("/", "_"));
     System.out.println("Processing bill number: " + billNumber);
-//    if(billNumber.equals("3983928468") ){
-//      return;
-//    }
+    //    if(billNumber.equals("3983928468") ){
+    //      return;
+    //    }
     String billState = bill.getAsJsonObject().get("state").getAsString();
     if (ImmutableList.of("APPROVED", "UNPAID", "PARTIALLY_PAID", "PAID").contains(billState)) {
       String billFolderPath = userPath + SLASH + "bills/" + billNumber;

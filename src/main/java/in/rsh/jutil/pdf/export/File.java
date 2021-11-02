@@ -88,7 +88,7 @@ public class File {
       Cell c = new Cell().add(img1.setAutoScale(true));
       c.setPadding(10);
       c.setBorder(null);
-        Image img = new Image(ImageDataFactory.create(IMAGES[0]));
+      Image img = new Image(ImageDataFactory.create(IMAGES[0]));
       Cell c2 = new Cell().add(img.setAutoScale(true));
       c2.setPadding(10).setBorder(null);
 
@@ -105,7 +105,7 @@ public class File {
   }
 
   private static class OverlappingImageTableRenderer extends TableRenderer {
-    private ImageData image;
+    private final ImageData image;
 
     public OverlappingImageTableRenderer(
         Table modelElement, Table.RowRange rowRange, ImageData img) {

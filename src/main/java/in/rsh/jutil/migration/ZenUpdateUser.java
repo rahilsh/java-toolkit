@@ -7,7 +7,6 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import in.rsh.jutil.clients.HttpClient;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.nio.file.Files;
@@ -70,7 +69,7 @@ public class ZenUpdateUser {
                       "phone",
                       "userIds",
                       "corpId",
-                      "Status")); ) {
+                      "Status"))) {
         map.keySet()
             .forEach(
                 userId -> {

@@ -24,6 +24,20 @@ public class HttpClient {
           .readTimeout(1, TimeUnit.MINUTES)
           .build();
 
+  private static Void fireAndForget(String url, String body, Map<String, String> headers)
+      throws ExecutionException, InterruptedException {
+    return CompletableFuture.completedFuture(null)
+        .thenAcceptAsync(
+            ignore -> {
+              try {
+                Unirest.post(url).headers(headers).body(body).asString();
+              } catch (UnirestException e) {
+                e.printStackTrace();
+              }
+            })
+        .get();
+  }
+
   public Response get(String url, Headers headers) {
     Request request = new Request.Builder().url(url).get().headers(headers).build();
     try {
@@ -37,19 +51,5 @@ public class HttpClient {
       throws UnirestException {
     HttpResponse<JsonNode> jsonResponse = Unirest.put(url).headers(headers).body(message).asJson();
     return jsonResponse.getBody().getObject();
-  }
-
-  private static Void fireAndForget(String url, String body, Map<String, String> headers)
-      throws ExecutionException, InterruptedException {
-    return CompletableFuture.completedFuture(null)
-        .thenAcceptAsync(
-            ignore -> {
-              try {
-                Unirest.post(url).headers(headers).body(body).asString();
-              } catch (UnirestException e) {
-                e.printStackTrace();
-              }
-            })
-        .get();
   }
 }

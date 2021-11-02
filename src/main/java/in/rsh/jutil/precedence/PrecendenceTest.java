@@ -2,6 +2,6 @@ package in.rsh.jutil.precedence;
 
 public class PrecendenceTest {
   public static void main(String[] args) {
-    System.out.println(false||true && false);
+    System.out.println(false || true && false);
   }
 }

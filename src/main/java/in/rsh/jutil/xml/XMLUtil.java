@@ -13,11 +13,6 @@ import org.apache.commons.io.IOUtils;
 public class XMLUtil {
   private final ObjectMapper objectMapper;
 
-  public static void main(String[] args) throws IOException {
-    String xmlString = "<a></a>";
-    new XMLUtil().parseXML(IOUtils.toInputStream(xmlString), Resources.class);
-  }
-
   public XMLUtil() {
     JacksonXmlModule xmlModule = new JacksonXmlModule();
     xmlModule.setDefaultUseWrapper(false);
@@ -25,6 +20,11 @@ public class XMLUtil {
     DeserializationFeature failOnUnknownProperties =
         DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
     objectMapper.configure(failOnUnknownProperties, false);
+  }
+
+  public static void main(String[] args) throws IOException {
+    String xmlString = "<a></a>";
+    new XMLUtil().parseXML(IOUtils.toInputStream(xmlString), Resources.class);
   }
 
   public <T> T parseXML(String xmlPath, Class<T> tClass) throws IOException {

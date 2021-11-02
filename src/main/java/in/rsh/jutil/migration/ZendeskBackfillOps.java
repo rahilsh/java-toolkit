@@ -53,7 +53,7 @@ public class ZendeskBackfillOps {
                     "% Breached",
                     "requester_id",
                     "email",
-                    "phone")); ) {
+                    "phone"))) {
 
       for (CSVRecord csvRecord : csvParser) {
         if (csvRecord.get(9).equals("-") || csvRecord.get(9).isEmpty()) {

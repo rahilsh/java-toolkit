@@ -5,8 +5,6 @@ import lombok.Getter;
 
 @Getter
 public class Ticket {
-  @CsvBindByName
-  private String corpId;
-  @CsvBindByName
-  private long ticketId;
+  @CsvBindByName private String corpId;
+  @CsvBindByName private long ticketId;
 }

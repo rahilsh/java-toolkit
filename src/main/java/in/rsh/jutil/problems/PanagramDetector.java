@@ -17,26 +17,6 @@ public class PanagramDetector {
 
   private static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
 
-  /*
-   * Finds the letters of the alphabet not included in the input string
-   *
-   * @param sentence a string to examine
-   * @return a string made up of the missing letters of the alphabet in sorted order
-   */
-  public String findMissingLetters(String sentence) {
-
-    if (sentence == null && sentence.isEmpty()) {
-      return "";
-    }
-    String output = "";
-    for (int i = 0; i < ALPHABET.length(); i++) {
-      if (!sentence.toLowerCase().contains("" + ALPHABET.charAt(i))) {
-        output = output + ALPHABET.charAt(i);
-      }
-    }
-    return output;
-  }
-
   public static void main(String[] args) {
     PanagramDetector pd = new PanagramDetector();
     boolean success = true;
@@ -55,5 +35,25 @@ public class PanagramDetector {
     } else {
       System.out.println("At least one of your tests failed.");
     }
+  }
+
+  /*
+   * Finds the letters of the alphabet not included in the input string
+   *
+   * @param sentence a string to examine
+   * @return a string made up of the missing letters of the alphabet in sorted order
+   */
+  public String findMissingLetters(String sentence) {
+
+    if (sentence == null && sentence.isEmpty()) {
+      return "";
+    }
+    String output = "";
+    for (int i = 0; i < ALPHABET.length(); i++) {
+      if (!sentence.toLowerCase().contains("" + ALPHABET.charAt(i))) {
+        output = output + ALPHABET.charAt(i);
+      }
+    }
+    return output;
   }
 }

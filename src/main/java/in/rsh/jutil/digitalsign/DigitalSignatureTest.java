@@ -1,5 +1,6 @@
 package in.rsh.jutil.digitalsign;
 
+import java.nio.charset.StandardCharsets;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.Signature;
@@ -11,7 +12,7 @@ public class DigitalSignatureTest {
     KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
     kpg.initialize(512);
     KeyPair keyPair = kpg.genKeyPair();
-    byte[] data = "test".getBytes("UTF8");
+    byte[] data = "test".getBytes(StandardCharsets.UTF_8);
     System.out.println("private= " + new BASE64Encoder().encode(keyPair.getPrivate().getEncoded()));
     System.out.println("public= " + new BASE64Encoder().encode(keyPair.getPublic().getEncoded()));
     Signature sig = Signature.getInstance("MD5WithRSA");

@@ -1,10 +1,9 @@
 package in.rsh.jutil.regex;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.math.BigInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.apache.commons.lang3.StringUtils;
 
 public class RegexTest {
   public static void main(String[] args) {
@@ -33,35 +32,30 @@ public class RegexTest {
 
       // print the group out for verification
       System.out.println(theGroup);
-      System.out.println(Long.parseLong(theGroup.split("-")[2])==1604721);
+      System.out.println(Long.parseLong(theGroup.split("-")[2]) == 1604721);
     }
-      stringToSearch = "Four score and seven years ago our fathers ...";
+    stringToSearch = "Four score and seven years ago our fathers ...";
 
-      p = Pattern.compile(" (\\S+or\\S+) ");   // the pattern to search for
-      m = p.matcher(stringToSearch);
+    p = Pattern.compile(" (\\S+or\\S+) "); // the pattern to search for
+    m = p.matcher(stringToSearch);
 
-      // if we find a match, get the group
-      if (m.find())
-      {
-          // we're only looking for one group, so get it
-          String theGroup = m.group(0);
+    // if we find a match, get the group
+    if (m.find()) {
+      // we're only looking for one group, so get it
+      String theGroup = m.group(0);
 
-          // print the group out for verification
-          System.out.format("'%s'\n", theGroup);
-      }
+      // print the group out for verification
+      System.out.format("'%s'\n", theGroup);
+    }
     System.out.println(exceptionTest());
-      BigInteger b= new BigInteger("9223372036854775808");
-      if (!(b.compareTo( new BigInteger("9223372036854775807"))==1)){
-          System.out.println(
-                  Long.valueOf("9223372036854775808"));
-      }
-
+    BigInteger b = new BigInteger("9223372036854775808");
+    if (!(b.compareTo(new BigInteger("9223372036854775807")) == 1)) {
+      System.out.println(Long.valueOf("9223372036854775808"));
+    }
 
     System.out.println(Long.MAX_VALUE);
     System.out.println("9223372036854775809".length());
-    System.out.println(
-    StringUtils.isNumeric("9223372036854775808"));
-
+    System.out.println(StringUtils.isNumeric("9223372036854775808"));
   }
 
   private static boolean exceptionTest() {

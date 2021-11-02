@@ -19,7 +19,7 @@ public class PropertiesModule extends AbstractModule {
   private static final String CONFIG_FILE_SYSTEM = "/etc/commons.properties";
   private static final String CONFIG_FILE_APPLICATION =
       String.format("/etc/%1$s/%1$s.properties", System.getProperty("service.name"));
-  private List<String> filePaths;
+  private final List<String> filePaths;
 
   public PropertiesModule() {
     this(CONFIG_FILE_JAR, CONFIG_FILE_SYSTEM, CONFIG_FILE_APPLICATION);

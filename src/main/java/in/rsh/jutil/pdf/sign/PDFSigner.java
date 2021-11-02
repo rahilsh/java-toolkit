@@ -53,11 +53,11 @@ import org.bouncycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder;
 
 public class PDFSigner implements SignatureInterface {
 
-  private PrivateKey privateKey;
-  private Certificate[] certificateChain;
   private static final PDFont FONT = PDType1Font.HELVETICA_BOLD;
   private static final float FONT_SIZE = 10;
   private static final float LEADING = FONT_SIZE * 1.5f;
+  private PrivateKey privateKey;
+  private Certificate[] certificateChain;
 
   public PDFSigner(KeyStore keystore, char[] pin)
       throws KeyStoreException, UnrecoverableKeyException, NoSuchAlgorithmException, IOException,
@@ -82,6 +82,23 @@ public class PDFSigner implements SignatureInterface {
     if (cert == null) {
       throw new IOException("Could not find certificate");
     }
+  }
+
+  public static void main(String[] args)
+      throws KeyStoreException, CertificateException, IOException, NoSuchAlgorithmException,
+          UnrecoverableKeyException {
+    File ksFile = new File("/Users/rahil.r/Documents/test.p12");
+    KeyStore keystore = KeyStore.getInstance("PKCS12");
+    char[] pin = "123456".toCharArray();
+    keystore.load(new FileInputStream(ksFile), pin);
+    PDFSigner signing = new PDFSigner(keystore, pin.clone());
+    File signedDocumentFile = new File("test_signed.pdf");
+    PDRectangle rect = new PDRectangle(400, 50, 130, 30);
+    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+    signing.signPDF(
+        new FileInputStream("/Users/rahil.r/Documents/test.pdf"), byteArrayOutputStream, rect);
+    FileOutputStream fop = new FileOutputStream(signedDocumentFile);
+    fop.write(byteArrayOutputStream.toByteArray());
   }
 
   public final void setPrivateKey(PrivateKey privateKey) {
@@ -183,8 +200,8 @@ public class PDFSigner implements SignatureInterface {
   }
 
   private static class CMSProcessableInputStream implements CMSTypedData {
-    private InputStream in;
     private final ASN1ObjectIdentifier contentType;
+    private final InputStream in;
 
     CMSProcessableInputStream(InputStream is) {
       this(new ASN1ObjectIdentifier(CMSObjectIdentifiers.data.getId()), is);
@@ -210,22 +227,5 @@ public class PDFSigner implements SignatureInterface {
     public ASN1ObjectIdentifier getContentType() {
       return contentType;
     }
-  }
-
-  public static void main(String[] args)
-      throws KeyStoreException, CertificateException, IOException, NoSuchAlgorithmException,
-          UnrecoverableKeyException {
-    File ksFile = new File("/Users/rahil.r/Documents/test.p12");
-    KeyStore keystore = KeyStore.getInstance("PKCS12");
-    char[] pin = "123456".toCharArray();
-    keystore.load(new FileInputStream(ksFile), pin);
-    PDFSigner signing = new PDFSigner(keystore, pin.clone());
-    File signedDocumentFile = new File("test_signed.pdf");
-    PDRectangle rect = new PDRectangle(400, 50, 130, 30);
-    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-    signing.signPDF(
-        new FileInputStream("/Users/rahil.r/Documents/test.pdf"), byteArrayOutputStream, rect);
-    FileOutputStream fop = new FileOutputStream(signedDocumentFile);
-    fop.write(byteArrayOutputStream.toByteArray());
   }
 }

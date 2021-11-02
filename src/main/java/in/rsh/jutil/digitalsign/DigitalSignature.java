@@ -1,5 +1,6 @@
 package in.rsh.jutil.digitalsign;
 
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.KeyPair;
@@ -34,7 +35,7 @@ public class DigitalSignature {
     rsa.update(jsonObject.toString().getBytes());
     byte[] data = rsa.sign();
 
-    String str = new String(data, "UTF-8");
+    String str = new String(data, StandardCharsets.UTF_8);
     System.out.print("String= ");
     System.out.println(str);
     String readableBytes = Hex.encodeHexString(data); // readable bytes
@@ -46,7 +47,7 @@ public class DigitalSignature {
       int v = Integer.parseInt(readableBytes.substring(index, index + 2), 16);
       b[i] = (byte) v;
     }
-    String str1 = new String(b, "UTF-8");
+    String str1 = new String(b, StandardCharsets.UTF_8);
     System.out.print("HEX=");
     System.out.println(str1);
 

@@ -32,7 +32,7 @@ import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.openxml4j.opc.PackagePart;
 import org.apache.poi.poifs.filesystem.DirectoryNode;
 import org.apache.poi.poifs.filesystem.Entry;
-import org.apache.poi.poifs.filesystem.NPOIFSFileSystem;
+import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import org.apache.poi.poifs.filesystem.Ole10Native;
 import org.apache.poi.poifs.filesystem.Ole10NativeException;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
@@ -124,7 +124,7 @@ public class ExtractAttachments {
       throws IOException {
     File file = new File(source);
 
-    NPOIFSFileSystem fs = new NPOIFSFileSystem(file);
+    POIFSFileSystem fs = new POIFSFileSystem(file);
     HSSFWorkbook wb = new HSSFWorkbook(fs.getRoot(), true);
 
     for (HSSFObjectData obj : wb.getAllEmbeddedObjects()) {

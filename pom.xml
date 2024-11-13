@@ -10,8 +10,8 @@
   <packaging>jar</packaging>
 
   <properties>
-		<java.version>1.8</java.version>
-	</properties>
+	<java.version>1.8</java.version>
+  </properties>
 
   <dependencies>
     <dependency>
@@ -166,10 +166,11 @@
       <artifactId>bcpkix-jdk15on</artifactId>
       <version>1.60</version>
     </dependency>
+<!-- https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk18on -->
     <dependency>
       <groupId>org.bouncycastle</groupId>
-      <artifactId>bcprov-jdk15on</artifactId>
-      <version>1.67</version>
+      <artifactId>bcprov-jdk18on</artifactId>
+      <version>1.79</version>
     </dependency>
     <dependency>
       <groupId>org.bouncycastle</groupId>

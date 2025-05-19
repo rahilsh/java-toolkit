@@ -156,7 +156,7 @@ public class ExtractAttachments {
   public static void saveAllEmbeddedWorkbooks(String source, String destinationFolder)
       throws IOException, OpenXML4JException {
     XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(new File(source)));
-    for (PackagePart pPart : workbook.getAllEmbedds()) {
+    for (PackagePart pPart : workbook.getAllEmbeddedParts()) {
       String contentType = pPart.getContentType();
       if (contentType.equals(
           "application/vnd.ms-excel")) { // This is to read xls workbook embedded to xlsx file
@@ -187,7 +187,7 @@ public class ExtractAttachments {
     }
     if (workbook instanceof XSSFWorkbook) {
       try {
-        for (PackagePart pPart : ((XSSFWorkbook) workbook).getAllEmbedds()) {
+        for (PackagePart pPart : ((XSSFWorkbook) workbook).getAllEmbeddedParts()) {
           String contentType = pPart.getContentType();
           String extension = ".xlsx";
           if (contentType.contains("application/vnd.ms-excel")) {

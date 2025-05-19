@@ -10,7 +10,7 @@
   <packaging>jar</packaging>
 
   <properties>
-	<java.version>1.8</java.version>
+	<java.version>21</java.version>
   </properties>
 
   <dependencies>
@@ -265,15 +265,12 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
+        <version>3.14.0</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.3.1</version>
         <configuration>
           <nonFilteredFileExtensions>
             <nonFilteredFileExtension>jks</nonFilteredFileExtension>
@@ -281,10 +278,10 @@
         </configuration>
       </plugin>
       <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>2.22.2</version>
-        </plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.5.3</version>
+      </plugin>
     </plugins>
 
   </build>

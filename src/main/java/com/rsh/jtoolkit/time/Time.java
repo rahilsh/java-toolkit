@@ -4,9 +4,7 @@ import java.sql.Timestamp;
 
 public class Time {
 
-  public static void main(String[] args) {
-    System.out.println(getTimestampFromMicros(1499012017901L));
-  }
+  private Time() {}
 
   public static Timestamp getTimestampFromMicros(final Long timestampInMicros) {
     long timestampInMillis = timestampInMicros / 1000;

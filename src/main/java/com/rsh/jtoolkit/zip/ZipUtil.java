@@ -9,6 +9,8 @@ import java.util.zip.ZipOutputStream;
 
 public class ZipUtil {
 
+  private ZipUtil() {}
+
   public static void pack(String source, String zipFilePath) throws IOException {
     Path zipPath = Files.createFile(Paths.get(zipFilePath));
     try (ZipOutputStream zs = new ZipOutputStream(Files.newOutputStream(zipPath))) {
@@ -23,7 +25,7 @@ public class ZipUtil {
                   Files.copy(path, zs);
                   zs.closeEntry();
                 } catch (IOException e) {
-                  throw new RuntimeException();
+                  throw new java.io.UncheckedIOException(e);
                 }
               });
     }

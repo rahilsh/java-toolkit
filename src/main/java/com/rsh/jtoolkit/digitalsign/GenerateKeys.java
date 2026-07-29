@@ -20,19 +20,6 @@ public class GenerateKeys {
     this.keyGen.initialize(keylength);
   }
 
-  public static void main(String[] args) {
-    GenerateKeys gk;
-    try {
-      gk = new GenerateKeys(1024);
-      gk.createKeys();
-      gk.writeToFile("/Users/rahil.r/Documents/KeyPair/publicKey", gk.getPublicKey().getEncoded());
-      gk.writeToFile(
-          "/Users/rahil.r/Documents/KeyPair/privateKey", gk.getPrivateKey().getEncoded());
-    } catch (NoSuchAlgorithmException | IOException e) {
-      System.err.println(e.getMessage());
-    }
-  }
-
   public void createKeys() {
     KeyPair pair = this.keyGen.generateKeyPair();
     this.privateKey = pair.getPrivate();

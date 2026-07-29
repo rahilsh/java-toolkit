@@ -29,12 +29,12 @@ class JsonUtilTest {
 
   @Test
   void testJsonToMap() {
-    // JsonToMap expects arrays as values, not strings
+    // jsonToMap expects arrays as values, not strings
     com.google.gson.Gson gson = new com.google.gson.Gson();
     JsonObject json = new JsonObject();
     json.add("a", gson.toJsonTree(Arrays.asList("1")));
     json.add("b", gson.toJsonTree(Arrays.asList("2")));
-    Map<String, List<String>> result = JsonUtil.JsonToMap(json);
+    Map<String, List<String>> result = JsonUtil.jsonToMap(json);
     assertNotNull(result);
     assertEquals(2, result.size());
     assertEquals("1", result.get("a").get(0));
@@ -43,7 +43,7 @@ class JsonUtilTest {
   @Test
   void testJsonToMapEmpty() {
     JsonObject json = new JsonObject();
-    Map<String, List<String>> result = JsonUtil.JsonToMap(json);
+    Map<String, List<String>> result = JsonUtil.jsonToMap(json);
     assertNotNull(result);
     assertEquals(0, result.size());
   }

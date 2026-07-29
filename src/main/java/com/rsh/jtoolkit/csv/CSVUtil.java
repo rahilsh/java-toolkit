@@ -1,36 +1,41 @@
 package com.rsh.jtoolkit.csv;
 
-import com.amazonaws.util.IOUtils;
 import com.opencsv.CSVParser;
 import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.HeaderColumnNameMappingStrategy;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
+import java.io.UncheckedIOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Objects;
+import org.apache.commons.io.IOUtils;
 
+/** Reads CSV files from the classpath and maps them onto beans using OpenCSV. */
 public class CSVUtil {
 
+  /**
+   * Reads a CSV classpath resource and maps each row onto an instance of {@code dataClass} using
+   * header-name column mapping.
+   *
+   * @param fileName classpath resource name (the {@code .csv} suffix is optional)
+   * @param dataClass the target bean type
+   * @throws UncheckedIOException if the resource cannot be found or read
+   */
   public <T> List<T> readCSVFile(String fileName, Class<T> dataClass) {
-    if (!fileName.endsWith(".csv")) {
-      fileName = fileName + ".csv";
-    }
-    String fullFileName;
-    if (fileName.startsWith("resources")) {
-      fullFileName = fileName;
-    } else {
-      fullFileName = "resources/" + fileName;
-    }
-    String result = "";
+    String resourceName = fileName.endsWith(".csv") ? fileName : fileName + ".csv";
     ClassLoader classLoader = getClass().getClassLoader();
-    try {
-      result =
-          IOUtils.toString(Objects.requireNonNull(classLoader.getResourceAsStream(fullFileName)));
+    try (InputStream in = classLoader.getResourceAsStream(resourceName)) {
+      if (in == null) {
+        throw new UncheckedIOException(
+            new java.io.FileNotFoundException("CSV resource not found: " + resourceName));
+      }
+      String result = IOUtils.toString(in, StandardCharsets.UTF_8);
+      return parseCSVFile(result, dataClass);
     } catch (IOException e) {
-      e.printStackTrace();
+      throw new UncheckedIOException("Failed to read CSV resource: " + resourceName, e);
     }
-    return parseCSVFile(result, dataClass);
   }
 
   private <T> List<T> parseCSVFile(String csvData, Class<T> dataClass) {

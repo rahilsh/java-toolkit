@@ -2,9 +2,6 @@ package com.rsh.jtoolkit.pdf.sign;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -82,23 +79,6 @@ public class PDFSigner implements SignatureInterface {
     if (cert == null) {
       throw new IOException("Could not find certificate");
     }
-  }
-
-  public static void main(String[] args)
-      throws KeyStoreException, CertificateException, IOException, NoSuchAlgorithmException,
-          UnrecoverableKeyException {
-    File ksFile = new File("/Users/rahil.r/Documents/test.p12");
-    KeyStore keystore = KeyStore.getInstance("PKCS12");
-    char[] pin = "123456".toCharArray();
-    keystore.load(new FileInputStream(ksFile), pin);
-    PDFSigner signing = new PDFSigner(keystore, pin.clone());
-    File signedDocumentFile = new File("test_signed.pdf");
-    PDRectangle rect = new PDRectangle(400, 50, 130, 30);
-    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-    signing.signPDF(
-        new FileInputStream("/Users/rahil.r/Documents/test.pdf"), byteArrayOutputStream, rect);
-    FileOutputStream fop = new FileOutputStream(signedDocumentFile);
-    fop.write(byteArrayOutputStream.toByteArray());
   }
 
   public final void setPrivateKey(PrivateKey privateKey) {

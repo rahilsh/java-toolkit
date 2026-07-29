@@ -4,30 +4,25 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class EmailUtilTest {
 
-  @Test
-  void testValidEmail() {
-    assertTrue(EmailUtil.isEmailValid());
+  @ParameterizedTest
+  @ValueSource(strings = {"test@example.com", "user.name@domain.org", "user+tag@domain.co.uk"})
+  void returnsTrueForValidEmails(String email) {
+    assertTrue(EmailUtil.isValid(email));
+  }
+
+  @ParameterizedTest
+  @ValueSource(strings = {"invalid", "@domain.com", "user@", ""})
+  void returnsFalseForInvalidEmails(String email) {
+    assertFalse(EmailUtil.isValid(email));
   }
 
   @Test
-  void testEmailValidatorWithValidEmails() {
-    org.apache.commons.validator.routines.EmailValidator validator = 
-        org.apache.commons.validator.routines.EmailValidator.getInstance();
-    assertTrue(validator.isValid("test@example.com"));
-    assertTrue(validator.isValid("user.name@domain.org"));
-    assertTrue(validator.isValid("user+tag@domain.co.uk"));
-  }
-
-  @Test
-  void testEmailValidatorWithInvalidEmails() {
-    org.apache.commons.validator.routines.EmailValidator validator = 
-        org.apache.commons.validator.routines.EmailValidator.getInstance();
-    assertFalse(validator.isValid("invalid"));
-    assertFalse(validator.isValid("@domain.com"));
-    assertFalse(validator.isValid("user@"));
-    assertFalse(validator.isValid(""));
+  void returnsFalseForNull() {
+    assertFalse(EmailUtil.isValid(null));
   }
 }

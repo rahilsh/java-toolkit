@@ -7,6 +7,8 @@ import org.apache.commons.io.FileUtils;
 
 public class StreamUtil {
 
+  private StreamUtil() {}
+
   public static void streamToFile(InputStream inputStream, String outputFilePath) {
     try {
       FileUtils.copyInputStreamToFile(inputStream, new File(outputFilePath));

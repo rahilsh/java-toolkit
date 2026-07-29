@@ -2,22 +2,28 @@ package com.rsh.jtoolkit.json;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.UncheckedIOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
-public class ReadJsonFile {
+/** Reads a JSON file from disk into a Gson {@link JsonObject}. */
+public final class ReadJsonFile {
 
+  private ReadJsonFile() {}
+
+  /**
+   * Reads the UTF-8 JSON file at {@code filePath} and returns it as a {@link JsonObject}.
+   *
+   * @throws UncheckedIOException if the file cannot be read
+   */
   public static JsonObject readJsonFile(String filePath) {
-    JsonReader reader;
-    JsonObject json = null;
-    try {
-      reader = new JsonReader(new FileReader(filePath));
-      JsonParser parser = new JsonParser();
-      json = parser.parse(reader).getAsJsonObject();
-    } catch (FileNotFoundException e) {
-      throw new RuntimeException(e);
+    try (Reader reader = Files.newBufferedReader(Paths.get(filePath), StandardCharsets.UTF_8)) {
+      return JsonParser.parseReader(reader).getAsJsonObject();
+    } catch (IOException e) {
+      throw new UncheckedIOException("Failed to read JSON file: " + filePath, e);
     }
-    return json;
   }
 }

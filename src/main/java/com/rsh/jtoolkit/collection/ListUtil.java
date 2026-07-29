@@ -1,28 +1,27 @@
 package com.rsh.jtoolkit.collection;
 
-import com.google.common.collect.Lists;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 
-public class ListUtil {
-  public static void main(String[] args) {
-    addNumberToList(list -> list.add(1), Lists.newArrayList(3L));
-    addNumberToList(list -> list.add(2L), Lists.newArrayList(4L));
-  }
+/** Utility methods for working with {@link List} instances. */
+public final class ListUtil {
 
-  private static void addNumberToList(Consumer<List<Number>> consumer, List<Number> list) {
-    consumer.accept(list);
-  }
+  private ListUtil() {}
 
+  /**
+   * Returns the minimum value in the list, or {@code 0} when the list is empty.
+   */
   public static Integer min(List<Integer> list) {
-    Optional<Integer> optionalMin = list.stream().min(Comparator.comparing(Integer::valueOf));
+    Optional<Integer> optionalMin = list.stream().min(Comparator.naturalOrder());
     return optionalMin.orElse(0);
   }
 
+  /**
+   * Returns the maximum value in the list, or {@code 0} when the list is empty.
+   */
   public static Integer max(List<Integer> list) {
-    Optional<Integer> optionalMax = list.stream().max(Comparator.comparing(Integer::valueOf));
+    Optional<Integer> optionalMax = list.stream().max(Comparator.naturalOrder());
     return optionalMax.orElse(0);
   }
 }

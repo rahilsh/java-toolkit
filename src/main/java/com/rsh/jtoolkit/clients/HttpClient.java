@@ -30,8 +30,8 @@ import okhttp3.Response;
  * }
  * }</pre>
  *
- * <p>Every method returns the raw {@link Response}; the caller is responsible for closing it
- * (for example with try-with-resources).
+ * <p>Every method returns the raw {@link Response}; the caller is responsible for closing it (for
+ * example with try-with-resources).
  */
 public class HttpClient {
 
@@ -84,7 +84,8 @@ public class HttpClient {
     try {
       return client.newCall(request).execute();
     } catch (IOException e) {
-      throw new UncheckedIOException("HTTP call failed: " + request.method() + " " + request.url(), e);
+      throw new UncheckedIOException(
+          "HTTP call failed: " + request.method() + " " + request.url(), e);
     }
   }
 }

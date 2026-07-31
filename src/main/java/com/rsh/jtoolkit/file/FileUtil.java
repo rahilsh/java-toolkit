@@ -24,8 +24,8 @@ public class FileUtil {
   }
 
   /**
-   * Renames every regular file with extension {@code from} to extension {@code to} within
-   * {@code folderPath} (non-recursive walk of the tree).
+   * Renames every regular file with extension {@code from} to extension {@code to} within {@code
+   * folderPath} (non-recursive walk of the tree).
    */
   public void changeExtensionOfFile(String from, String to, String folderPath) throws IOException {
     try (var paths = Files.walk(Paths.get(folderPath))) {

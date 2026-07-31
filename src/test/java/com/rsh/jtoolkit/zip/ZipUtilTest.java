@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,7 +18,7 @@ class ZipUtilTest {
   private static final File sourceFolder = new File(SOURCE);
 
   @BeforeEach
-  public void setUp() throws IOException{
+  public void setUp() throws IOException {
     sourceFolder.mkdir();
     new File(SOURCE + "/test.txt").createNewFile();
   }

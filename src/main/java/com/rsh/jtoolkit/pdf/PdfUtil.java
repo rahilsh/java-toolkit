@@ -12,7 +12,10 @@ public final class PdfUtil {
 
   private PdfUtil() {}
 
-  /** Returns {@code true} if the PDF at {@code filePath} declares PDF/A conformance in its XMP metadata. */
+  /**
+   * Returns {@code true} if the PDF at {@code filePath} declares PDF/A conformance in its XMP
+   * metadata.
+   */
   public static boolean isPdfA(String filePath) throws IOException {
     try (PDDocument document = PDDocument.load(new File(filePath))) {
       return isPdfA(document);
@@ -32,7 +35,8 @@ public final class PdfUtil {
       return false;
     }
     String xmp = new String(metadata.toByteArray(), StandardCharsets.UTF_8);
-    // The PDF/A identification schema uses the "pdfaid" namespace (pdfaid:part / pdfaid:conformance).
+    // The PDF/A identification schema uses the "pdfaid" namespace (pdfaid:part /
+    // pdfaid:conformance).
     return xmp.contains("pdfaid");
   }
 }

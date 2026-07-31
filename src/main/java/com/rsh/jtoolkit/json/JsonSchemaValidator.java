@@ -5,7 +5,9 @@ import org.everit.json.schema.ValidationException;
 import org.everit.json.schema.loader.SchemaLoader;
 import org.json.JSONObject;
 
-/** Validates JSON documents against a JSON Schema (draft-07 and friends) using everit-json-schema. */
+/**
+ * Validates JSON documents against a JSON Schema (draft-07 and friends) using everit-json-schema.
+ */
 public final class JsonSchemaValidator {
 
   private JsonSchemaValidator() {}

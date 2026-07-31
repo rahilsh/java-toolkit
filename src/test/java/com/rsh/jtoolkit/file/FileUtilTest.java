@@ -30,11 +30,13 @@ class FileUtilTest {
     if (tempDir != null && Files.exists(tempDir)) {
       Files.walk(tempDir)
           .sorted((a, b) -> b.compareTo(a))
-          .forEach(path -> {
-            try {
-              Files.delete(path);
-            } catch (IOException ignored) {}
-          });
+          .forEach(
+              path -> {
+                try {
+                  Files.delete(path);
+                } catch (IOException ignored) {
+                }
+              });
     }
   }
 
@@ -74,9 +76,9 @@ class FileUtilTest {
   void testChangeExtensionOfFile() throws IOException {
     Path txtFile = tempDir.resolve("document.txt");
     Files.writeString(txtFile, "content");
-    
+
     fileUtil.changeExtensionOfFile("txt", "md", tempDir.toString());
-    
+
     Path mdFile = tempDir.resolve("document.md");
     assertTrue(Files.exists(mdFile));
     assertEquals("content", Files.readString(mdFile));
@@ -86,9 +88,9 @@ class FileUtilTest {
   void testChangeExtensionOfFileNoMatch() throws IOException {
     Path txtFile = tempDir.resolve("document.txt");
     Files.writeString(txtFile, "content");
-    
+
     fileUtil.changeExtensionOfFile("xyz", "md", tempDir.toString());
-    
+
     assertTrue(Files.exists(txtFile));
     assertEquals("content", Files.readString(txtFile));
   }
@@ -105,9 +107,11 @@ class FileUtilTest {
   @Test
   void testRenameFolderNotFound() {
     Path nonExistent = tempDir.resolve("nonexistent");
-    assertThrows(RuntimeException.class, () -> {
-      fileUtil.renameFolder(nonExistent.toString(), tempDir.resolve("target").toString());
-    });
+    assertThrows(
+        RuntimeException.class,
+        () -> {
+          fileUtil.renameFolder(nonExistent.toString(), tempDir.resolve("target").toString());
+        });
   }
 
   @Test

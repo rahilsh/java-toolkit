@@ -32,7 +32,9 @@ class GenerateKeysTest {
   @Test
   void writesKeyToFile(@TempDir Path tempDir) throws Exception {
     Path publicKeyFile = tempDir.resolve("keys/public.key");
-    generateKeys.writeToFile(publicKeyFile.toString(), generateKeys.getPublicKey().getEncoded());
+    assertTrue(
+        generateKeys.writeToFile(
+            publicKeyFile.toString(), generateKeys.getPublicKey().getEncoded()));
 
     assertTrue(Files.exists(publicKeyFile));
     assertTrue(Files.size(publicKeyFile) > 0);

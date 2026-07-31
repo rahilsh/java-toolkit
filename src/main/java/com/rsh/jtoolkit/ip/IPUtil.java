@@ -22,7 +22,7 @@ public class IPUtil {
                   return true;
                 })
             .findAny();
-    return !any.isPresent();
+    return any.isEmpty();
   }
 
   private static boolean isValidIP(String ipV4Address) {

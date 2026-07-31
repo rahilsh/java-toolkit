@@ -28,7 +28,8 @@ class CSVUtilTest {
 
   @Test
   void throwsWhenResourceMissing() {
-    assertThrows(UncheckedIOException.class, () -> csvUtil.readCSVFile("does-not-exist", Person.class));
+    assertThrows(
+        UncheckedIOException.class, () -> csvUtil.readCSVFile("does-not-exist", Person.class));
   }
 
   public static class Person {

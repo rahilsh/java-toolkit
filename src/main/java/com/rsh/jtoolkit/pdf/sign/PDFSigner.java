@@ -57,7 +57,10 @@ public class PDFSigner implements SignatureInterface {
   private Certificate[] certificateChain;
 
   public PDFSigner(KeyStore keystore, char[] pin)
-      throws KeyStoreException, UnrecoverableKeyException, NoSuchAlgorithmException, IOException,
+      throws KeyStoreException,
+          UnrecoverableKeyException,
+          NoSuchAlgorithmException,
+          IOException,
           CertificateException {
     Enumeration<String> aliases = keystore.aliases();
     String alias;

@@ -30,7 +30,8 @@ public final class SignatureUtil {
   }
 
   /**
-   * Verifies that {@code signatureBytes} is a valid signature of {@code data} for {@code publicKey}.
+   * Verifies that {@code signatureBytes} is a valid signature of {@code data} for {@code
+   * publicKey}.
    *
    * @return {@code true} if the signature is valid
    */

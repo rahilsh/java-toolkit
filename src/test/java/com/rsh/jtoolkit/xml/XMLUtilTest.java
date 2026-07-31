@@ -18,7 +18,8 @@ class XMLUtilTest {
   void parsesFromInputStream() throws IOException {
     String xml = "<Person><name>Graham</name><type>Developer</type></Person>";
     Person person =
-        xmlUtil.parseXML(new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)), Person.class);
+        xmlUtil.parseXML(
+            new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)), Person.class);
     assertEquals("Graham", person.getName());
     assertEquals("Developer", person.getType());
   }
@@ -35,7 +36,8 @@ class XMLUtilTest {
   void ignoresUnknownProperties() throws IOException {
     String xml = "<Person><name>Bob</name><unknown>x</unknown></Person>";
     Person person =
-        xmlUtil.parseXML(new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)), Person.class);
+        xmlUtil.parseXML(
+            new ByteArrayInputStream(xml.getBytes(StandardCharsets.UTF_8)), Person.class);
     assertEquals("Bob", person.getName());
   }
 

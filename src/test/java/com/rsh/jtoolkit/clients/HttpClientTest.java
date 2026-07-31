@@ -42,7 +42,8 @@ class HttpClientTest {
   void getReturnsResponseAndSendsHeaders() throws Exception {
     server.enqueue(new MockResponse().setResponseCode(200).setBody("hello"));
 
-    try (Response response = httpClient.get(server.url("/thing").toString(), Map.of("X-Test", "1"))) {
+    try (Response response =
+        httpClient.get(server.url("/thing").toString(), Map.of("X-Test", "1"))) {
       assertEquals(200, response.code());
       assertEquals("hello", response.body().string());
     }
@@ -57,7 +58,8 @@ class HttpClientTest {
   void postSendsJsonBody() throws Exception {
     server.enqueue(new MockResponse().setResponseCode(201));
 
-    try (Response response = httpClient.post(server.url("/create").toString(), "{\"a\":1}", Map.of())) {
+    try (Response response =
+        httpClient.post(server.url("/create").toString(), "{\"a\":1}", Map.of())) {
       assertEquals(201, response.code());
     }
 

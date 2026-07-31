@@ -20,11 +20,14 @@ public final class EmojiUtil {
       return null;
     }
     StringBuilder sb = new StringBuilder(input.length());
-    input.codePoints().forEach(cp -> {
-      if (!isEmoji(cp)) {
-        sb.appendCodePoint(cp);
-      }
-    });
+    input
+        .codePoints()
+        .forEach(
+            cp -> {
+              if (!isEmoji(cp)) {
+                sb.appendCodePoint(cp);
+              }
+            });
     return sb.toString();
   }
 
@@ -38,6 +41,8 @@ public final class EmojiUtil {
       return true;
     }
     // Variation selectors, zero-width joiner, keycap combining enclosing mark
-    return (codePoint >= 0xFE00 && codePoint <= 0xFE0F) || codePoint == 0x200D || codePoint == 0x20E3;
+    return (codePoint >= 0xFE00 && codePoint <= 0xFE0F)
+        || codePoint == 0x200D
+        || codePoint == 0x20E3;
   }
 }

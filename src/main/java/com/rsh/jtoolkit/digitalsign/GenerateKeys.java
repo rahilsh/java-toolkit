@@ -8,16 +8,17 @@ import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import lombok.Getter;
 
 public class GenerateKeys {
 
   private final KeyPairGenerator keyGen;
-  private PrivateKey privateKey;
-  private PublicKey publicKey;
+  @Getter private PrivateKey privateKey;
+  @Getter private PublicKey publicKey;
 
-  public GenerateKeys(int keylength) throws NoSuchAlgorithmException {
+  public GenerateKeys(int keyLength) throws NoSuchAlgorithmException {
     this.keyGen = KeyPairGenerator.getInstance("RSA");
-    this.keyGen.initialize(keylength);
+    this.keyGen.initialize(keyLength);
   }
 
   public void createKeys() {
@@ -26,20 +27,13 @@ public class GenerateKeys {
     this.publicKey = pair.getPublic();
   }
 
-  public PrivateKey getPrivateKey() {
-    return this.privateKey;
-  }
-
-  public PublicKey getPublicKey() {
-    return this.publicKey;
-  }
-
-  public void writeToFile(String path, byte[] key) throws IOException {
+  public boolean writeToFile(String path, byte[] key) throws IOException {
     File f = new File(path);
-    f.getParentFile().mkdirs();
+    boolean success = f.getParentFile().mkdirs();
     try (FileOutputStream fos = new FileOutputStream(f)) {
       fos.write(key);
       fos.flush();
     }
+    return success;
   }
 }

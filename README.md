@@ -5,7 +5,8 @@ A lean, production-oriented "Swiss-army knife" of small, focused Java utilities.
 - **Java 21**, built with Maven
 - **Dependency-injection friendly** – collaborators (e.g. `OkHttpClient`) are injected, never created via hidden static state
 - **No hidden side effects** – utilities throw meaningful exceptions instead of printing stack traces or writing to `System.out`
-- **Tested** – JUnit 6, with a JaCoCo line-coverage gate of **85%** on production code (currently ~92%)
+- **Tested** – JUnit 6, with a JaCoCo line-coverage gate of **85%** on production code (currently ~94%)
+- **Quality-gated** – every build runs Spotless (google-java-format), Error Prone + NullAway, and SpotBugs
 
 ## Requirements
 
@@ -15,11 +16,26 @@ A lean, production-oriented "Swiss-army knife" of small, focused Java utilities.
 ## Build & test
 
 ```bash
-mvn verify        # compile, run tests, enforce the 85% coverage gate
-mvn test          # run tests only
+mvn verify            # compile, tests, coverage gate, Spotless check, Error Prone, SpotBugs
+mvn test              # run tests only
+mvn spotless:apply    # auto-format the code
+mvn -Psecurity verify # additionally run OWASP dependency-check (set NVD_API_KEY for speed)
 ```
 
 The HTML coverage report is written to `target/site/jacoco/index.html`.
+
+## Quality tooling
+
+| Tool | Purpose | Scope |
+|---|---|---|
+| JUnit 6 + JaCoCo | Tests + **85%** line-coverage gate (`verify`) | production code (scratch/HTML→PDF/signing excluded) |
+| Spotless (google-java-format) | Formatting, import ordering, unused-import removal | production + tests (scratch excluded) |
+| Error Prone + NullAway | Compile-time bug & nullability analysis | production + tests (scratch excluded; NullAway is a warning) |
+| SpotBugs (High threshold) | Bytecode bug detection (`verify`) | production (scratch excluded — see `spotbugs-exclude.xml`) |
+| OWASP dependency-check | Known-vulnerability scanning (opt-in `-Psecurity`) | all dependencies |
+
+JDK 16+ requires the compiler exports in `.mvn/jvm.config` for google-java-format and Error Prone.
+
 
 ## Design principles
 
@@ -63,7 +79,7 @@ Production utilities live under `com.rsh.jtoolkit.*`:
 | `digitalsign` | `GenerateKeys`, `SignatureUtil` | Generate RSA key pairs; RSA sign/verify (`SHA256withRSA`) |
 | `email` | `EmailUtil` | Email syntax validation |
 | `emoji` | `EmojiUtil` | Strip emoji / emoji modifiers from text |
-| `excel` | `ExtractAttachments` | Extract embedded objects from Excel workbooks (POI) |
+| `excel` | `EmbeddedFileExtractor`, `EmbeddedFile` | Extract files embedded in `.xls`/`.xlsx` workbooks (POI) |
 | `file` | `FileUtil` | Read/write files, bulk extension rename, folder rename |
 | `future` | `FutureUtil` | Collect results of many `CompletionStage`s |
 | `ip` | `IPUtil` | CIDR range checks and IPv4 validation |
@@ -79,10 +95,10 @@ Production utilities live under `com.rsh.jtoolkit.*`:
 
 ### Notes on "niche" modules
 
-`excel`, `pdf.HTMLToPDF`, and `pdf.sign` are retained and hardened but require
-external resources (proprietary Excel files, fonts/keystores) to exercise, so
-they are excluded from the CI coverage gate. They are unit-tested where practical
-(e.g. `pdf.ExtractAttachments`, `digitalsign.GenerateKeys`).
+`pdf.HTMLToPDF` and `pdf.sign` are retained and hardened but require
+external resources (fonts/keystores) to exercise, so
+they are excluded from the CI coverage gate. Everything else is unit-tested
+(e.g. `pdf.ExtractAttachments`, `excel.EmbeddedFileExtractor`, `digitalsign.GenerateKeys`).
 
 ## `scratch` package
 
@@ -93,4 +109,4 @@ want, or promote a class into a real module by giving it a clean, injectable API
 
 ## License
 
-See repository.
+Licensed under the Apache License 2.0 — see the [LICENSE](LICENSE) file.

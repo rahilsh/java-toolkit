@@ -31,7 +31,8 @@ class ExtractAttachmentsTest {
     }
     Path outDir = tempDir.resolve("out");
 
-    List<String> extracted = ExtractAttachments.extractAttachments(pdf.toString(), outDir.toString());
+    List<String> extracted =
+        ExtractAttachments.extractAttachments(pdf.toString(), outDir.toString());
 
     assertTrue(extracted.isEmpty());
     assertTrue(Files.exists(outDir) || extracted.isEmpty());
@@ -55,7 +56,8 @@ class ExtractAttachmentsTest {
       PDEmbeddedFilesNameTreeNode efTree = new PDEmbeddedFilesNameTreeNode();
       efTree.setNames(names);
 
-      PDDocumentNameDictionary nameDict = new PDDocumentNameDictionary(document.getDocumentCatalog());
+      PDDocumentNameDictionary nameDict =
+          new PDDocumentNameDictionary(document.getDocumentCatalog());
       nameDict.setEmbeddedFiles(efTree);
       document.getDocumentCatalog().setNames(nameDict);
 
@@ -63,7 +65,8 @@ class ExtractAttachmentsTest {
     }
 
     Path outDir = tempDir.resolve("extracted");
-    List<String> extracted = ExtractAttachments.extractAttachments(pdf.toString(), outDir.toString());
+    List<String> extracted =
+        ExtractAttachments.extractAttachments(pdf.toString(), outDir.toString());
 
     assertEquals(List.of("hello.txt"), extracted);
     assertEquals("hi there", Files.readString(outDir.resolve("hello.txt")));

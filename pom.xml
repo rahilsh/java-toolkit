@@ -50,7 +50,7 @@
 	<libphonenumber.version>8.13.50</libphonenumber.version>
 	<guice.version>7.0.0</guice.version>
 	<commons-configuration2.version>2.15.0</commons-configuration2.version>
-	<commons-net.version>3.11.1</commons-net.version>
+	<commons-net.version>3.13.0</commons-net.version>
 	<everit-json-schema.version>1.11.1</everit-json-schema.version>
 
 	<!-- Plugin / tooling versions -->

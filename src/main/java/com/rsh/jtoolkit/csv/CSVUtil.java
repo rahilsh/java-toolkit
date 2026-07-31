@@ -1,8 +1,6 @@
 package com.rsh.jtoolkit.csv;
 
-import com.opencsv.CSVParser;
-import com.opencsv.CSVReader;
-import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.bean.HeaderColumnNameMappingStrategy;
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,16 +39,10 @@ public class CSVUtil {
   private <T> List<T> parseCSVFile(String csvData, Class<T> dataClass) {
     HeaderColumnNameMappingStrategy<T> mappingStrategy = new HeaderColumnNameMappingStrategy<>();
     mappingStrategy.setType(dataClass);
-    CsvToBean<T> csvBean = new CsvToBean<>();
-    CSVReader reader =
-        new CSVReader(
-            new StringReader(csvData),
-            CSVParser.DEFAULT_SEPARATOR,
-            CSVParser.DEFAULT_QUOTE_CHARACTER,
-            CSVParser.DEFAULT_ESCAPE_CHARACTER,
-            0,
-            false,
-            false);
-    return csvBean.parse(mappingStrategy, reader);
+    return new CsvToBeanBuilder<T>(new StringReader(csvData))
+        .withMappingStrategy(mappingStrategy)
+        .withIgnoreLeadingWhiteSpace(false)
+        .build()
+        .parse();
   }
 }

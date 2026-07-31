@@ -46,7 +46,7 @@
 	<slf4j.version>2.0.16</slf4j.version>
 	<okhttp.version>5.4.0</okhttp.version>
 	<commons-validator.version>1.9.0</commons-validator.version>
-	<opencsv.version>4.6</opencsv.version>
+	<opencsv.version>5.12.0</opencsv.version>
 	<libphonenumber.version>8.13.50</libphonenumber.version>
 	<guice.version>7.0.0</guice.version>
 	<commons-configuration2.version>2.15.0</commons-configuration2.version>

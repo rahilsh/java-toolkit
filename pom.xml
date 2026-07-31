@@ -51,7 +51,7 @@
 	<guice.version>7.0.0</guice.version>
 	<commons-configuration2.version>2.15.0</commons-configuration2.version>
 	<commons-net.version>3.13.0</commons-net.version>
-	<everit-json-schema.version>1.11.1</everit-json-schema.version>
+	<everit-json-schema.version>1.14.6</everit-json-schema.version>
 
 	<!-- Plugin / tooling versions -->
 	<spotless.version>2.44.3</spotless.version>

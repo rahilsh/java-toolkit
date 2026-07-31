@@ -1,6 +1,8 @@
 package com.rsh.jtoolkit.primitive;
 
-public class ShortUtil {
+public final class ShortUtil {
+
+  private ShortUtil() {}
 
   public static short getReversedBytes(short value) {
     return Short.reverseBytes(value);

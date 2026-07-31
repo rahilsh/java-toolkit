@@ -5,7 +5,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
 
-public class FutureUtil {
+public final class FutureUtil {
+
+  private FutureUtil() {}
 
   public static <T> CompletableFuture<List<T>> resultsOfAllFutures(
       List<CompletionStage<T>> completionStages) {

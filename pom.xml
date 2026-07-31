@@ -337,10 +337,6 @@
           <excludes>
             <!-- Demo / scratch code kept for review, not part of the public API -->
             <exclude>com/rsh/jtoolkit/scratch/**</exclude>
-            <!-- Niche modules requiring external resources/services
-                 (PDF fonts/keystores) - hardened but not unit-tested in CI -->
-            <exclude>com/rsh/jtoolkit/pdf/HTMLToPDF*</exclude>
-            <exclude>com/rsh/jtoolkit/pdf/sign/**</exclude>
           </excludes>
         </configuration>
         <executions>

@@ -5,7 +5,7 @@ A lean, production-oriented "Swiss-army knife" of small, focused Java utilities.
 - **Java 21**, built with Maven
 - **Dependency-injection friendly** – collaborators (e.g. `OkHttpClient`) are injected, never created via hidden static state
 - **No hidden side effects** – utilities throw meaningful exceptions instead of printing stack traces or writing to `System.out`
-- **Tested** – JUnit 6, with a JaCoCo line-coverage gate of **85%** on production code (currently ~94%)
+- **Tested** – JUnit 6, with a JaCoCo line-coverage gate of **85%** on production code (currently ~90%)
 - **Quality-gated** – every build runs Spotless (google-java-format), Error Prone + NullAway, and SpotBugs
 
 ## Requirements
@@ -28,7 +28,7 @@ The HTML coverage report is written to `target/site/jacoco/index.html`.
 
 | Tool | Purpose | Scope |
 |---|---|---|
-| JUnit 6 + JaCoCo | Tests + **85%** line-coverage gate (`verify`) | production code (scratch/HTML→PDF/signing excluded) |
+| JUnit 6 + JaCoCo | Tests + **85%** line-coverage gate (`verify`) | all production code (only `scratch` excluded) |
 | Spotless (google-java-format) | Formatting, import ordering, unused-import removal | production + tests (scratch excluded) |
 | Error Prone + NullAway | Compile-time bug & nullability analysis | production + tests (scratch excluded; NullAway is a warning) |
 | SpotBugs (High threshold) | Bytecode bug detection (`verify`) | production (scratch excluded — see `spotbugs-exclude.xml`) |
@@ -95,10 +95,10 @@ Production utilities live under `com.rsh.jtoolkit.*`:
 
 ### Notes on "niche" modules
 
-`pdf.HTMLToPDF` and `pdf.sign` are retained and hardened but require
-external resources (fonts/keystores) to exercise, so
-they are excluded from the CI coverage gate. Everything else is unit-tested
-(e.g. `pdf.ExtractAttachments`, `excel.EmbeddedFileExtractor`, `digitalsign.GenerateKeys`).
+Every production class is unit-tested, including the heavier PDF/Excel modules
+(`pdf.HTMLToPDF`, `pdf.sign.PDFSigner`, `pdf.ExtractAttachments`, `pdf.PdfUtil`,
+`excel.EmbeddedFileExtractor`, `digitalsign.GenerateKeys`/`SignatureUtil`). Tests generate their
+own fixtures at runtime (in-memory keystores, workbooks and PDFs), so no external files are needed.
 
 ## `scratch` package
 

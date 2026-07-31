@@ -28,4 +28,20 @@ class IPUtilTest {
   void testInvalidIPs() {
     assertFalse(IPUtil.areIPsValid(new String[] {"283.82.19.161"}));
   }
+
+  @Test
+  void testNullIpIsInvalid() {
+    assertFalse(IPUtil.areIPsValid(new String[] {null}));
+  }
+
+  @Test
+  void testEmptyIpIsInvalid() {
+    assertFalse(IPUtil.areIPsValid(new String[] {""}));
+  }
+
+  @Test
+  void testNullOrEmptyIpTreatedAsOutOfRange() {
+    assertFalse(IPUtil.areIPsInRange("183.82.19.162/30", new String[] {(String) null}));
+    assertFalse(IPUtil.areIPsInRange("183.82.19.162/30", new String[] {""}));
+  }
 }

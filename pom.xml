@@ -34,7 +34,7 @@
 	<lombok.version>1.18.38</lombok.version>
 	<pdfbox.version>2.0.32</pdfbox.version>
 	<json.version>20250107</json.version>
-	<commons-io.version>2.18.0</commons-io.version>
+	<commons-io.version>2.22.0</commons-io.version>
 	<flying-saucer.version>9.1.22</flying-saucer.version>
 	<guava.version>33.4.0-jre</guava.version>
 	<jackson.version>2.18.2</jackson.version>

@@ -60,7 +60,7 @@
 	<everit-json-schema.version>1.14.6</everit-json-schema.version>
 
 	<!-- Plugin / tooling versions -->
-	<spotless.version>2.44.3</spotless.version>
+	<spotless.version>3.9.0</spotless.version>
 	<google-java-format.version>1.25.2</google-java-format.version>
 	<errorprone.version>2.36.0</errorprone.version>
 	<nullaway.version>0.12.3</nullaway.version>

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.rsh.jtoolkit.collection.ListUtil;
 import com.rsh.jtoolkit.collection.SetUtil;
+import com.rsh.jtoolkit.digitalsign.KeyUtil;
 import com.rsh.jtoolkit.email.EmailUtil;
 import com.rsh.jtoolkit.emoji.EmojiUtil;
 import com.rsh.jtoolkit.future.FutureUtil;
@@ -40,6 +41,7 @@ class UtilityClassInvariantsTest {
       return java.util.stream.Stream.of(
               ListUtil.class,
               SetUtil.class,
+              KeyUtil.class,
               EmailUtil.class,
               EmojiUtil.class,
               FutureUtil.class,

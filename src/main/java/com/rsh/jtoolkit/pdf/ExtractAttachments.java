@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentNameDictionary;
 import org.apache.pdfbox.pdmodel.PDEmbeddedFilesNameTreeNode;
@@ -27,7 +28,7 @@ public final class ExtractAttachments {
    * @throws IOException if the PDF cannot be read or an attachment cannot be written
    */
   public static List<String> extractAttachments(String src, String dir) throws IOException {
-    try (PDDocument document = PDDocument.load(new File(src))) {
+    try (PDDocument document = Loader.loadPDF(new File(src))) {
       PDDocumentNameDictionary names = new PDDocumentNameDictionary(document.getDocumentCatalog());
       PDEmbeddedFilesNameTreeNode embeddedFiles = names.getEmbeddedFiles();
       if (embeddedFiles == null) {

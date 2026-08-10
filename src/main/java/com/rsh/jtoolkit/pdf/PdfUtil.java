@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.common.PDMetadata;
 
@@ -17,14 +18,14 @@ public final class PdfUtil {
    * metadata.
    */
   public static boolean isPdfA(String filePath) throws IOException {
-    try (PDDocument document = PDDocument.load(new File(filePath))) {
+    try (PDDocument document = Loader.loadPDF(new File(filePath))) {
       return isPdfA(document);
     }
   }
 
   /** Returns {@code true} if the PDF read from {@code inputStream} declares PDF/A conformance. */
   public static boolean isPdfA(InputStream inputStream) throws IOException {
-    try (PDDocument document = PDDocument.load(inputStream)) {
+    try (PDDocument document = Loader.loadPDF(inputStream.readAllBytes())) {
       return isPdfA(document);
     }
   }

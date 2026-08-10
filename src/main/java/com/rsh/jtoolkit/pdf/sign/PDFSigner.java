@@ -17,6 +17,7 @@ import java.security.cert.X509Certificate;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Enumeration;
+import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.io.IOUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -26,6 +27,7 @@ import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.common.PDStream;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import org.apache.pdfbox.pdmodel.graphics.form.PDFormXObject;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationWidget;
 import org.apache.pdfbox.pdmodel.interactive.annotation.PDAppearanceDictionary;
@@ -50,7 +52,7 @@ import org.bouncycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder;
 
 public class PDFSigner implements SignatureInterface {
 
-  private static final PDFont FONT = PDType1Font.HELVETICA_BOLD;
+  private static final PDFont FONT = new PDType1Font(Standard14Fonts.FontName.HELVETICA_BOLD);
   private static final float FONT_SIZE = 10;
   private static final float LEADING = FONT_SIZE * 1.5f;
   private PrivateKey privateKey;
@@ -112,7 +114,7 @@ public class PDFSigner implements SignatureInterface {
 
   public void signPDF(InputStream inputFile, ByteArrayOutputStream fos, PDRectangle rect)
       throws IOException {
-    try (PDDocument doc = PDDocument.load(inputFile)) {
+    try (PDDocument doc = Loader.loadPDF(inputFile.readAllBytes())) {
       PDSignature signature = new PDSignature();
       signature.setFilter(PDSignature.FILTER_ADOBE_PPKLITE);
       signature.setSubFilter(PDSignature.SUBFILTER_ADBE_PKCS7_DETACHED);

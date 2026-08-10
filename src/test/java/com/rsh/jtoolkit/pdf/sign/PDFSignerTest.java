@@ -16,6 +16,7 @@ import java.security.cert.X509Certificate;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
@@ -50,7 +51,7 @@ class PDFSignerTest {
 
     byte[] signed = out.toByteArray();
     assertTrue(signed.length > source.length, "signed PDF should be larger than the source");
-    try (PDDocument doc = PDDocument.load(signed)) {
+    try (PDDocument doc = Loader.loadPDF(signed)) {
       assertFalse(doc.getSignatureDictionaries().isEmpty(), "expected a signature dictionary");
     }
   }

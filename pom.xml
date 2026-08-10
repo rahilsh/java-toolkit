@@ -62,8 +62,8 @@
 	<!-- Plugin / tooling versions -->
 	<spotless.version>2.44.3</spotless.version>
 	<google-java-format.version>1.25.2</google-java-format.version>
-	<errorprone.version>2.36.0</errorprone.version>
-	<nullaway.version>0.12.3</nullaway.version>
+	<errorprone.version>2.50.0</errorprone.version>
+	<nullaway.version>0.13.8</nullaway.version>
 	<spotbugs.version>4.10.3.0</spotbugs.version>
 	<dependency-check.version>13.0.0</dependency-check.version>
   </properties>
@@ -275,6 +275,7 @@
           </annotationProcessorPaths>
           <compilerArgs>
             <arg>-XDcompilePolicy=simple</arg>
+            <arg>-XDaddTypeAnnotationsToSymbol=true</arg>
             <arg>--should-stop=ifError=FLOW</arg>
             <arg>-Xplugin:ErrorProne -XepExcludedPaths:.*/scratch/.* -Xep:NullAway:WARN -XepOpt:NullAway:AnnotatedPackages=com.rsh.jtoolkit</arg>
             <arg>--add-opens</arg>

@@ -26,3 +26,21 @@ jobs:
           cache: maven
       - name: Build and verify
         run: mvn -B verify
+
+  # Aggregation gate: exposes a single, stable status check ("ci-success") that
+  # is independent of the build matrix. Set this as the required status check in
+  # branch protection instead of the matrix-dependent "build (21)" context.
+  ci-success:
+    name: ci-success
+    if: always()
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify build job succeeded
+        run: |
+          if [ "${{ needs.build.result }}" != "success" ]; then
+            echo "build job did not succeed: ${{ needs.build.result }}"
+            exit 1
+          fi
+          echo "All required jobs succeeded."
+

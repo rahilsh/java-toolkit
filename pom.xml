@@ -46,7 +46,7 @@
 	<pdfbox.version>3.0.8</pdfbox.version>
 	<json.version>20260814</json.version>
 	<commons-io.version>2.22.0</commons-io.version>
-	<flying-saucer.version>9.1.22</flying-saucer.version>
+	<flying-saucer.version>10.5.0</flying-saucer.version>
 	<guava.version>33.4.0-jre</guava.version>
 	<jackson.version>2.22.2</jackson.version>
 	<poi.version>5.5.1</poi.version>

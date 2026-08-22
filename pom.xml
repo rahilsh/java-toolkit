@@ -187,12 +187,6 @@
       <version>${poi.version}</version>
       <optional>true</optional>
     </dependency>
-    <dependency>
-      <groupId>org.apache.poi</groupId>
-      <artifactId>poi-ooxml-full</artifactId>
-      <version>${poi.version}</version>
-      <optional>true</optional>
-    </dependency>
 
     <!-- Feature: http (HttpClient) -->
     <dependency>

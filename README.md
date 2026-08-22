@@ -143,7 +143,7 @@ of the box. If you use one of the feature modules below, add the matching depend
 | `pdf` – attachments / PDF-A | `org.apache.pdfbox:pdfbox` |
 | `pdf` – `HTMLToPDF` | `org.xhtmlrenderer:flying-saucer-pdf` |
 | `pdf` – `PDFSigner` | `org.apache.pdfbox:pdfbox`, `org.bouncycastle:bcprov-jdk18on`, `org.bouncycastle:bcpkix-jdk18on` |
-| `excel` | `org.apache.poi:poi`, `org.apache.poi:poi-ooxml`, `org.apache.poi:poi-ooxml-full` |
+| `excel` | `org.apache.poi:poi`, `org.apache.poi:poi-ooxml` |
 
 ### Excluding features / dependencies you don't use
 

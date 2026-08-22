@@ -22,15 +22,14 @@ public final class HTMLToPDF {
   public static void generatePDF(String inputHtmlPath, String outputPdfPath) {
     try {
       String url = new File(inputHtmlPath).toURI().toURL().toString();
+      ITextRenderer renderer = ITextRenderer.fromUrl(url);
       try (OutputStream out = Files.newOutputStream(Paths.get(outputPdfPath))) {
-        ITextRenderer renderer = new ITextRenderer();
-        renderer.setDocument(url);
         renderer.layout();
         renderer.createPDF(out);
       }
     } catch (IOException e) {
       throw new UncheckedIOException("Failed to generate PDF from " + inputHtmlPath, e);
-    } catch (com.lowagie.text.DocumentException e) {
+    } catch (org.openpdf.text.DocumentException e) {
       throw new IllegalStateException("Failed to render PDF from " + inputHtmlPath, e);
     }
   }

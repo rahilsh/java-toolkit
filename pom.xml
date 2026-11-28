@@ -62,7 +62,7 @@
 	<!-- Plugin / tooling versions -->
 	<spotless.version>3.11.0</spotless.version>
 	<google-java-format.version>1.25.2</google-java-format.version>
-	<errorprone.version>2.52.0</errorprone.version>
+	<errorprone.version>2.53.0</errorprone.version>
 	<nullaway.version>0.14.4</nullaway.version>
 	<spotbugs.version>4.10.5.0</spotbugs.version>
 	<dependency-check.version>13.0.0</dependency-check.version>
